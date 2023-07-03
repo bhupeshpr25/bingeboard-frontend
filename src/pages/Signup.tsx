@@ -65,7 +65,6 @@ export default function Signup() {
         data
       );
 
-      // Show success toast
       toast({
         title: "User created",
         description: "The user has been created successfully.",
@@ -74,14 +73,10 @@ export default function Signup() {
         isClosable: true,
       });
 
-      // Redirect to /signin page
       navigate("/signin");
-
-      // Handle success here (e.g., show success message, redirect, etc.)
     } catch (error) {
       console.error(error);
 
-      // Show error toast
       toast({
         title: "Error",
         description: "An error occurred while creating the user.",
@@ -95,8 +90,6 @@ export default function Signup() {
           </Alert>
         ),
       });
-
-      // Handle error here (e.g., show error message, etc.)
     }
   };
 

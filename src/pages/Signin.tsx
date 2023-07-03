@@ -53,7 +53,6 @@ export default function Signin() {
 
       console.log(response);
 
-      // Show success toast
       toast({
         title: "User signed in",
         description: "The user has signed in successfully.",
@@ -62,14 +61,10 @@ export default function Signin() {
         isClosable: true,
       });
 
-      // Redirect to /signin page
       navigate("/home");
-
-      // Handle success here (e.g., show success message, redirect, etc.)
     } catch (error) {
       console.error(error);
 
-      // Show error toast
       toast({
         title: "Error",
         description: "An error occurred while signing in",
@@ -83,8 +78,6 @@ export default function Signin() {
           </Alert>
         ),
       });
-
-      // Handle error here (e.g., show error message, etc.)
     }
   };
 

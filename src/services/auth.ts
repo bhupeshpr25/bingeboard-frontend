@@ -15,5 +15,3 @@ export const refreshAccessTokenFn = async () => {
   const response = await authApi.get<IUser>("auth/refresh");
   return response.data;
 };
-
-// Other functions for sign-up, login, etc.

@@ -2,7 +2,7 @@ import { getMediaToken } from "./apiMedia";
 import { INote } from "../api/types";
 
 export async function getNotes(mediaId: string) {
-  const token = getMediaToken(null); // Pass null as the argument to `getMediaToken`
+  const token = getMediaToken(null);
 
   const response = await fetch(`https://bingeboard.onrender.com/api/note`, {
     headers: {
