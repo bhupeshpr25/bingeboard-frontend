@@ -46,26 +46,6 @@ export async function getMedium(mediaId: string, token?: string) {
   }
 }
 
-export async function getNotes(token?: string) {
-  try {
-    const config: AxiosRequestConfig = {};
-
-    if (token) {
-      config.headers = {
-        Authorization: `Bearer ${token}`,
-      };
-    }
-
-    const response = await axios.get(`${API_BASE_URL}/note`, config);
-
-    console.log(response.data);
-    return response.data;
-  } catch (error) {
-    console.log(error);
-    throw new Error("Notes not loaded");
-  }
-}
-
 export function getMediaToken(token: string | null): string | null {
   return token;
 }

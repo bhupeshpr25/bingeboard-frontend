@@ -1,20 +1,23 @@
-import { getMediaToken } from "./apiMedia";
-import { INote } from "../api/types";
+import axios, { AxiosRequestConfig } from "axios";
 
-export async function getNotes(mediaId: string) {
-  const token = getMediaToken(null);
+const API_BASE_URL = "https://bingeboard.onrender.com/api";
 
-  const response = await fetch(`https://bingeboard.onrender.com/api/note`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-    },
-  });
+export async function getNotes(token?: string) {
+  try {
+    const config: AxiosRequestConfig = {};
 
-  if (!response.ok) {
-    throw new Error("Failed to fetch notes.");
+    if (token) {
+      config.headers = {
+        Authorization: `Bearer ${token}`,
+      };
+    }
+
+    const response = await axios.get(`${API_BASE_URL}/note`, config);
+
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw new Error("Notes not loaded");
   }
-
-  const data: INote[] = await response.json();
-  return data;
 }

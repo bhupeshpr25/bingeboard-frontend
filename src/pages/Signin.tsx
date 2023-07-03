@@ -51,7 +51,7 @@ export default function Signin() {
         data
       );
 
-      console.log(response);
+      console.log(response.data);
 
       toast({
         title: "User signed in",
