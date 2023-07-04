@@ -23,6 +23,8 @@ import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import useAuth from "../hooks/useAuth";
+import jwt_decode from "jwt-decode";
 // import { Logo } from "./Logo";
 
 const signinSchema = z.object({
@@ -33,6 +35,8 @@ const signinSchema = z.object({
 type signinSchemaType = z.infer<typeof signinSchema>;
 
 export default function Signin() {
+  const { login } = useAuth();
+
   const {
     register,
     handleSubmit,
@@ -51,8 +55,29 @@ export default function Signin() {
         data
       );
 
-      console.log(response.data);
+      const token = response.data.access_token;
+      const decodedToken: {
+        id: string;
+        username: string;
+        email: string;
+        iat: number;
+      } = jwt_decode(token, { header: true });
 
+      if (decodedToken) {
+        const loggedInUser = {
+          id: decodedToken.id,
+          username: decodedToken.username,
+          email: decodedToken.email,
+          createdAt: "",
+          updatedAt: "",
+          media: [],
+          token: token,
+        };
+
+        login(loggedInUser);
+      } else {
+        console.log("could not decode token");
+      }
       toast({
         title: "User signed in",
         description: "The user has signed in successfully.",

@@ -1,4 +1,3 @@
-// useAuth.ts
 import { useStateContext } from "../context";
 import { IUser } from "../api/types";
 

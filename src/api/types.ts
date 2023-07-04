@@ -1,13 +1,13 @@
 export interface IUser {
   id: string;
   username: string;
-  password: string;
+  email: string;
+  password?: string;
   createdAt: string;
   updatedAt: string;
   media: IMedia[];
   token: string;
 }
-
 export interface IMedia {
   id: string;
   title: string;

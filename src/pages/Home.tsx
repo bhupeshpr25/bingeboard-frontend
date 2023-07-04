@@ -19,8 +19,10 @@ const Home = () => {
   const token = getToken();
 
   const stateContext = useStateContext();
-
   const user = stateContext.state.authUser;
+
+  console.log("User:", user);
+  console.log("Token:", token);
 
   const {
     data: media,
@@ -29,6 +31,10 @@ const Home = () => {
   } = useQuery<MediaItem[], Error>(["media"], () =>
     getMedia(token ?? undefined)
   );
+
+  console.log("Media:", media);
+  console.log("Loading:", isLoading);
+  console.log("Error:", isError);
 
   if (!authUser) {
     navigate("/signin");

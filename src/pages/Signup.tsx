@@ -24,6 +24,7 @@ import { Link } from "@chakra-ui/react";
 import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import useAuth from "../hooks/useAuth";
 // import { Logo } from "./Logo";
 
 const signupSchema = z
@@ -47,6 +48,8 @@ const signupSchema = z
 type signupSchemaType = z.infer<typeof signupSchema>;
 
 export default function Signup() {
+  const { login } = useAuth();
+
   const {
     register,
     handleSubmit,
@@ -64,6 +67,20 @@ export default function Signup() {
         "https://bingeboard.onrender.com/signup/",
         data
       );
+
+      const newUser = {
+        id: response.data.id,
+        username: data.username,
+        email: data.email,
+        password: response.data.password,
+        createdAt: response.data.createdAt,
+        updatedAt: response.data.updatedAt,
+        media: response.data.media,
+        token: response.data.token,
+      };
+
+      login(newUser);
+      console.log(newUser);
 
       toast({
         title: "User created",

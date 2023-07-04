@@ -38,7 +38,7 @@ export async function getMedium(mediaId: string, token?: string) {
       config
     );
 
-    console.log(response.data);
+    console.log("response data:", response.data);
     return response.data;
   } catch (error) {
     console.log(error);

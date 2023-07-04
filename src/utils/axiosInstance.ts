@@ -4,15 +4,11 @@ const axiosInstance: AxiosInstance = axios.create({
   baseURL: "https://bingeboard.onrender.com/api",
 });
 
-axiosInstance.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
-
-  if (token) {
-    config.headers["Authorization"] = `Bearer ${token}`;
-  }
-
-  return config;
-});
+// Set the token permanently for all requests
+const token = localStorage.getItem("token");
+if (token) {
+  axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+}
 
 axiosInstance.interceptors.response.use(
   (response: AxiosResponse<{ token: string }>) => {
@@ -20,6 +16,9 @@ axiosInstance.interceptors.response.use(
 
     if (token) {
       localStorage.setItem("token", token);
+      axiosInstance.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${token}`;
     }
 
     return response;
