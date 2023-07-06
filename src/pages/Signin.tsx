@@ -55,13 +55,14 @@ export default function Signin() {
         data
       );
 
-      const token = response.data.access_token;
+      const token = response.data.token;
+      console.log(token);
       const decodedToken: {
         id: string;
         username: string;
         email: string;
         iat: number;
-      } = jwt_decode(token, { header: true });
+      } = jwt_decode(token);
 
       if (decodedToken) {
         const loggedInUser = {

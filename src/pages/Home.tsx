@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import { getMedia } from "../services/apiMedia";
 import { useStateContext } from "../context";
-import { MediaList } from "../components/MediaList";
+// import { MediaList } from "../components/MediaList";
+import MediaListContainer from "../components/MediaListContainer";
 
 interface MediaItem {
   id: string;
@@ -52,7 +53,7 @@ const Home = () => {
   return (
     <div>
       <h1>{user?.username}</h1>
-      <MediaList media={media} />
+      <MediaListContainer />
     </div>
   );
 };

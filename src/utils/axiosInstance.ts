@@ -4,12 +4,6 @@ const axiosInstance: AxiosInstance = axios.create({
   baseURL: "https://bingeboard.onrender.com/api",
 });
 
-// Set the token permanently for all requests
-const token = localStorage.getItem("token");
-if (token) {
-  axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-}
-
 axiosInstance.interceptors.response.use(
   (response: AxiosResponse<{ token: string }>) => {
     const token = response.data.token;
@@ -21,6 +15,7 @@ axiosInstance.interceptors.response.use(
       ] = `Bearer ${token}`;
     }
 
+    console.log(response);
     return response;
   },
   (error) => {
