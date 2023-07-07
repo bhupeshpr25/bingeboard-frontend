@@ -23,6 +23,7 @@ import { SingleMedia } from "./SingleMedia";
 import { Navbar } from "./NavMenu";
 import { MediaList } from "./MediaList";
 import MediaForm from "./MediaForm";
+import MediaListContainer from "./MediaListContainer";
 
 function Layout() {
   const [sidebarIsScrolled, setSidebarIsScrolled] = useState(false);
@@ -79,7 +80,7 @@ function Layout() {
             mediaform
           </HStack>
         </ColumnHeader>
-        <MediaList media={[]} />
+        <MediaListContainer />
       </Box>
       <Box
         flex="1"

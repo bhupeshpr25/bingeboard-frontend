@@ -80,7 +80,6 @@ export default function Signup() {
       };
 
       login(newUser);
-      console.log(newUser);
 
       toast({
         title: "User created",

@@ -11,6 +11,9 @@ interface MediaListProps {
 }
 
 export const MediaList: React.FC<MediaListProps> = ({ media }) => {
+  if (media.length === 0) {
+    return <div>No media available.</div>;
+  }
   return (
     <Stack
       spacing={{

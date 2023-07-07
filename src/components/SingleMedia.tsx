@@ -11,25 +11,25 @@ import {
   useColorModeValue as mode,
 } from "@chakra-ui/react";
 import { Link, useParams } from "react-router-dom";
-import { getMedia, getMedium } from "../services/apiMedia";
+import { getMedia, getMediaToken, getMedium } from "../services/apiMedia";
 import { useQuery } from "@tanstack/react-query";
 import { getNotes } from "../services/apiNote";
 import SingleNote from "./SingleNote";
+import useAuth from "../hooks/useAuth";
 
 export const SingleMedia: React.FC = () => {
   const { mediaId } = useParams<{ mediaId?: string }>();
+  const { getToken } = useAuth();
+
+  const token = getMediaToken(getToken());
 
   const { isLoading: isMediaLoading, data: media } = useQuery({
-    queryKey: ["media", mediaId],
-    queryFn: () => (mediaId ? getMedium(mediaId) : Promise.resolve(null)),
+    queryKey: ["media", mediaId, token],
+    queryFn: () =>
+      mediaId ? getMedium(mediaId, token) : Promise.resolve(null),
   });
 
-  const { isLoading: isNotesLoading, data: notes } = useQuery({
-    queryKey: ["notes", mediaId],
-    queryFn: () => (mediaId ? getNotes(mediaId) : Promise.resolve(null)),
-  });
-
-  if (isMediaLoading || isNotesLoading) {
+  if (isMediaLoading) {
     return <p>Loading...</p>;
   }
 
@@ -54,9 +54,9 @@ export const SingleMedia: React.FC = () => {
             <Box p="2" mx="4" rounded="lg">
               {media.description}
             </Box>
-            {notes && notes.length > 0 ? (
+            {media.notes && media.notes.length > 0 ? (
               <List spacing="4">
-                {notes.map((note: any) => (
+                {media.notes.map((note: any) => (
                   <Center key={note.id}>
                     <ListItem>
                       <SingleNote note={note} />

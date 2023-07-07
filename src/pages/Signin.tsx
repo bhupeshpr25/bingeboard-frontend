@@ -56,7 +56,6 @@ export default function Signin() {
       );
 
       const token = response.data.token;
-      console.log(token);
       const decodedToken: {
         id: string;
         username: string;

@@ -15,7 +15,6 @@ axiosInstance.interceptors.response.use(
       ] = `Bearer ${token}`;
     }
 
-    console.log(response);
     return response;
   },
   (error) => {

@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import { getMedia } from "../services/apiMedia";
 import { useStateContext } from "../context";
-// import { MediaList } from "../components/MediaList";
 import MediaListContainer from "../components/MediaListContainer";
 
 interface MediaItem {
@@ -17,25 +16,16 @@ const Home = () => {
   const { user: authUser, getToken } = useAuth();
   const navigate = useNavigate();
 
-  const token = getToken();
+  const token = getToken() ?? "";
 
   const stateContext = useStateContext();
   const user = stateContext.state.authUser;
-
-  console.log("User:", user);
-  console.log("Token:", token);
 
   const {
     data: media,
     isLoading,
     isError,
-  } = useQuery<MediaItem[], Error>(["media"], () =>
-    getMedia(token ?? undefined)
-  );
-
-  console.log("Media:", media);
-  console.log("Loading:", isLoading);
-  console.log("Error:", isError);
+  } = useQuery<MediaItem[], Error>(["media"], () => getMedia(token));
 
   if (!authUser) {
     navigate("/signin");
@@ -52,7 +42,6 @@ const Home = () => {
 
   return (
     <div>
-      <h1>{user?.username}</h1>
       <MediaListContainer />
     </div>
   );

@@ -2,34 +2,30 @@ import axios, { AxiosRequestConfig } from "axios";
 
 const API_BASE_URL = "https://bingeboard.onrender.com/api";
 
-export async function getMedia(token?: string) {
+export async function getMedia(token: string) {
   try {
-    const config: AxiosRequestConfig = {};
-
-    if (token) {
-      config.headers = {
+    const config: AxiosRequestConfig = {
+      headers: {
         Authorization: `Bearer ${token}`,
-      };
-    }
+      },
+    };
 
     const response = await axios.get(`${API_BASE_URL}/media`, config);
 
-    console.log("Request Config:", config);
-
     return response.data;
   } catch (error) {
-    console.log(error);
     throw new Error("Media not loaded");
   }
 }
 
+// apiMedia.ts
 export async function getMedium(mediaId: string, token?: string) {
   try {
     const config: AxiosRequestConfig = {};
 
     if (token) {
       config.headers = {
-        Authorization: `Bearer ${token}`,
+        Authorization: token,
       };
     }
 
@@ -38,14 +34,12 @@ export async function getMedium(mediaId: string, token?: string) {
       config
     );
 
-    console.log("response data:", response.data);
-    return response.data;
+    return response.data.data;
   } catch (error) {
-    console.log(error);
     throw new Error("Medium not found");
   }
 }
 
-export function getMediaToken(token: string | null): string | null {
-  return token;
+export function getMediaToken(token: string | null): string | undefined {
+  return token ? `Bearer ${token}` : undefined;
 }
