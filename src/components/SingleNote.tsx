@@ -30,7 +30,6 @@ function SingleNote({ note }: any) {
             <HStack>
               <Heading
                 fontSize={{ sm: "xs", md: "lg", lg: "xl" }}
-                color="subtle"
                 fontWeight="bold"
               >
                 S
@@ -40,13 +39,12 @@ function SingleNote({ note }: any) {
               </Heading>
               <Heading
                 fontSize={{ sm: "xs", md: "lg", lg: "xl" }}
-                color="subtle"
                 fontWeight="bold"
               >
                 - E
               </Heading>
               <Heading fontSize={{ sm: "xs", md: "lg", lg: "xl" }}>
-                {note.episode}{" "}
+                {note.episode}
               </Heading>
             </HStack>
             <Heading
@@ -65,11 +63,11 @@ function SingleNote({ note }: any) {
 
           <ChakraText noOfLines={3}>
             <Badge fontSize="lg" mr="2" variant="none" color="blue.200">
-              {note.timestamp}
+              {note.timestampHr} : {note.timestampMin} : {note.timestampSec}
             </Badge>
             {note.body}
           </ChakraText>
-          <Badge fontSize="xs" rounded="md" color="subtle" fontWeight="medium">
+          <Badge fontSize="xs" rounded="md" fontWeight="medium">
             {note.tag}
           </Badge>
         </Stack>

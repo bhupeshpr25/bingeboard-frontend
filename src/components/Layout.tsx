@@ -24,6 +24,7 @@ import { Navbar } from "./NavMenu";
 import { MediaList } from "./MediaList";
 import MediaForm from "./MediaForm";
 import MediaListContainer from "./MediaListContainer";
+import NoteForm from "./NoteForm";
 
 function Layout() {
   const [sidebarIsScrolled, setSidebarIsScrolled] = useState(false);
@@ -77,7 +78,6 @@ function Layout() {
               <ColumnHeading>MediaList</ColumnHeading>
             </HStack>
             <MediaForm />
-            mediaform
           </HStack>
         </ColumnHeader>
         <MediaListContainer />
@@ -118,7 +118,7 @@ function Layout() {
                   <MenuItem>Delete</MenuItem>
                 </MenuList>
               </Menu>
-              <ColumnButton leftIcon={<FiPlus />}>Add</ColumnButton>
+              <NoteForm />
             </HStack>
           </HStack>
         </ColumnHeader>

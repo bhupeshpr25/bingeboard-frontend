@@ -10,24 +10,15 @@ import {
 } from "@chakra-ui/react";
 import {
   FiBookmark,
-  FiBookOpen,
   FiClock,
-  FiFileText,
   FiFilm,
   FiGitlab,
-  FiLink,
   FiMoon,
-  FiMusic,
-  FiSettings,
   FiStar,
   FiSun,
-  FiTrash2,
   FiTv,
-  FiUsers,
-  FiVideo,
   FiX,
 } from "react-icons/fi";
-import { IoGameControllerOutline } from "react-icons/io5";
 import { ColumnHeader, ColumnIconButton } from "./Column";
 import { Link } from "react-router-dom";
 

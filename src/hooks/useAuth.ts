@@ -19,7 +19,7 @@ const useAuth = () => {
   };
 
   const getToken = () => {
-    return localStorage.getItem(TOKEN_KEY);
+    return localStorage.getItem(TOKEN_KEY) || "";
   };
 
   return {

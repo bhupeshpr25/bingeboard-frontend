@@ -27,7 +27,9 @@ export interface INote {
   body?: string;
   season?: number;
   episode?: number;
-  timestamp?: string;
+  timestampHr?: number;
+  timestampMin?: number;
+  timestampSec?: number;
   tag?: string;
   createdAt: string;
   updatedAt: string;
@@ -56,4 +58,21 @@ export interface IUserResponse {
   data: {
     user: IUser;
   };
+}
+
+export interface MediaFormValues {
+  title: string;
+  type: Medium;
+  description?: string;
+}
+
+export interface NoteFormValues {
+  title: string;
+  body?: string;
+  tag?: string;
+  season?: number;
+  episode?: number;
+  timestampHr?: number;
+  timestampMin?: number;
+  timestampSec?: number;
 }

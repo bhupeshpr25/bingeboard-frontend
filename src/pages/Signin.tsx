@@ -190,9 +190,7 @@ export default function Signin() {
               </Stack>
             </Flex>
             <Flex align="center" h="24">
-              <Text color="on-accent-subtle" fontSize="sm">
-                © 2022 Chakra UI. All rights reserved.
-              </Text>
+              <Text fontSize="sm">© 2022 Chakra UI. All rights reserved.</Text>
             </Flex>
           </Flex>
         </Box>
@@ -252,9 +250,9 @@ export default function Signin() {
                       {...register("username")}
                     />
                     {errors.username && (
-                      <span className="text-red-800 block mt-2">
+                      <Box mt="2" color="red-800">
                         {errors.username?.message}
-                      </span>
+                      </Box>
                     )}
                   </FormControl>
                   <FormControl>
@@ -267,7 +265,7 @@ export default function Signin() {
                       {...register("password")}
                     />
                     {errors.password && (
-                      <Box color="red-800" display="block" mt="2">
+                      <Box mt="2" color="red-800">
                         {errors.password?.message}
                       </Box>
                     )}

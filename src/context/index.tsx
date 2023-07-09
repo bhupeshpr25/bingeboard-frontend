@@ -1,5 +1,7 @@
-import React from "react";
+// context/StateContext.tsx
+import React, { createContext, useReducer, ReactNode } from "react";
 import { IUser } from "../api/types";
+import { MediaContextProvider } from "./MediaContext";
 
 type State = {
   authUser: IUser | null;
@@ -16,11 +18,11 @@ const initialState: State = {
   authUser: null,
 };
 
-type StateContextProviderProps = { children: React.ReactNode };
-
-const StateContext = React.createContext<
+export const StateContext = createContext<
   { state: State; dispatch: Dispatch } | undefined
 >(undefined);
+
+type StateContextProviderProps = { children: ReactNode };
 
 const stateReducer = (state: State, action: Action) => {
   switch (action.type) {
@@ -36,15 +38,20 @@ const stateReducer = (state: State, action: Action) => {
   }
 };
 
-const StateContextProvider = ({ children }: StateContextProviderProps) => {
-  const [state, dispatch] = React.useReducer(stateReducer, initialState);
+export const StateContextProvider = ({
+  children,
+}: StateContextProviderProps) => {
+  const [state, dispatch] = useReducer(stateReducer, initialState);
   const value = { state, dispatch };
+
   return (
-    <StateContext.Provider value={value}>{children}</StateContext.Provider>
+    <StateContext.Provider value={value}>
+      <MediaContextProvider>{children}</MediaContextProvider>
+    </StateContext.Provider>
   );
 };
 
-const useStateContext = () => {
+export const useStateContext = () => {
   const context = React.useContext(StateContext);
 
   if (context) {
@@ -53,5 +60,3 @@ const useStateContext = () => {
 
   throw new Error(`useStateContext must be used within a StateContextProvider`);
 };
-
-export { StateContextProvider, useStateContext };
