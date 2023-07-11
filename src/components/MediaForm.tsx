@@ -14,15 +14,17 @@ import {
   Textarea,
   Select,
   Box,
+  IconButton,
 } from "@chakra-ui/react";
 import { FiPlus } from "react-icons/fi";
 import { ColumnButton } from "./Column";
 import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createMedium } from "../services/apiMedia";
+import { createMedium, updateMedia } from "../services/apiMedia";
 import useAuth from "../hooks/useAuth";
-import { Medium } from "../api/types";
+import { IMedia, Medium } from "../api/types";
+import { AiOutlineEdit } from "react-icons/ai";
 
 const mediaSchema = z.object({
   title: z.string().min(3, "Title is required").max(100),
@@ -32,8 +34,22 @@ const mediaSchema = z.object({
 
 type MediaFormValues = z.infer<typeof mediaSchema>;
 
-export default function MediaForm() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+interface MediaFormProps {
+  onClose: () => void;
+  initialValues?: MediaFormValues;
+  isEditing: boolean;
+  media?: IMedia;
+  setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export default function NoteForm({
+  onClose,
+  initialValues,
+  isEditing,
+  media,
+  setIsEditing,
+}: MediaFormProps) {
+  const { isOpen, onOpen, onClose: onModalClose } = useDisclosure();
   const { getToken } = useAuth();
   const {
     handleSubmit,
@@ -42,11 +58,16 @@ export default function MediaForm() {
     reset,
   } = useForm<MediaFormValues>({
     resolver: zodResolver(mediaSchema),
+    defaultValues: initialValues,
   });
 
   const onSubmit: SubmitHandler<MediaFormValues> = async (data) => {
     try {
-      await createMedium(data, getToken());
+      if (isEditing && media) {
+        await updateMedia(media.id, data, getToken());
+      } else {
+        await createMedium(data, getToken());
+      }
       reset();
       onClose();
     } catch (error) {
@@ -54,11 +75,25 @@ export default function MediaForm() {
     }
   };
 
+  const handleEdit = () => {
+    onOpen();
+  };
+
   return (
     <>
-      <ColumnButton leftIcon={<FiPlus />} onClick={onOpen}>
-        Create
-      </ColumnButton>
+      {!isEditing && (
+        <ColumnButton leftIcon={<FiPlus />} onClick={onOpen}>
+          Create
+        </ColumnButton>
+      )}
+      {isEditing && (
+        <IconButton
+          variant="ghost"
+          aria-label="edit"
+          icon={<AiOutlineEdit />}
+          onClick={handleEdit}
+        />
+      )}
       <Modal isCentered onClose={onClose} isOpen={isOpen} motionPreset="scale">
         <ModalOverlay />
         <ModalContent>
@@ -98,10 +133,15 @@ export default function MediaForm() {
                 )}
               </FormControl>
               <ModalFooter>
-                <Button colorScheme="teal" mr={3} type="submit">
-                  Create
+                <Button
+                  colorScheme="teal"
+                  mr={3}
+                  type="submit"
+                  onClick={onModalClose}
+                >
+                  {isEditing ? "Update" : "Create"}
                 </Button>
-                <Button variant="ghost" onClick={onClose}>
+                <Button variant="ghost" onClick={onModalClose}>
                   Cancel
                 </Button>
               </ModalFooter>

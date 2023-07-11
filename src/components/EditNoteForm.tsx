@@ -15,7 +15,6 @@ import {
   HStack,
   Collapse,
   Box,
-  IconButton,
 } from "@chakra-ui/react";
 import { FiChevronDown, FiPlus } from "react-icons/fi";
 import { ColumnButton } from "./Column";
@@ -23,42 +22,31 @@ import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useAuth from "../hooks/useAuth";
-import { createNote, updateNote } from "../services/apiNote";
+import { createNote } from "../services/apiNote";
 import { useMediaId } from "../hooks/useMediaId";
-import { INote, NoteFormValues } from "../api/types";
-import { AiOutlineEdit } from "react-icons/ai";
 
 const noteSchema = z.object({
   title: z.string().min(2, "Longer title is required").max(100),
   body: z.string().max(1000).optional(),
-  tag: z.string().min(3).max(10).optional(),
-  season: z.number().min(1).max(100).optional(),
+  tag: z.string().min(3).max(10),
+  season: z.number().min(1).max(100),
   episode: z.number().min(1).max(100),
-  timestampHr: z.number().min(0).max(23).optional(),
-  timestampMin: z.number().min(0).max(59).optional(),
-  timestampSec: z.number().min(0).max(59).optional(),
+  timestampHr: z.number().min(0).max(23),
+  timestampMin: z.number().min(0).max(59),
+  timestampSec: z.number().min(0).max(59),
 });
 
+type NoteFormValues = z.infer<typeof noteSchema>;
 interface NoteFormProps {
   onClose: () => void;
   initialValues?: NoteFormValues;
-  isEditing: boolean;
-  note?: INote;
-  setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function NoteForm({
-  onClose,
-  initialValues,
-  isEditing,
-  note,
-  setIsEditing,
-}: NoteFormProps) {
+export default function NoteForm({ onClose, initialValues }: NoteFormProps) {
   const { isOpen, onOpen, onClose: onModalClose } = useDisclosure();
   const { isOpen: isToggleOpen, onToggle } = useDisclosure();
   const { getToken } = useAuth();
   const currentMediaId = useMediaId();
-
   const {
     handleSubmit,
     register,
@@ -71,11 +59,7 @@ export default function NoteForm({
 
   const onSubmit: SubmitHandler<NoteFormValues> = async (data) => {
     try {
-      if (isEditing && note) {
-        await updateNote(note.id, data, getToken());
-      } else {
-        await createNote(data, currentMediaId, getToken());
-      }
+      await createNote(data, currentMediaId, getToken());
       reset();
       onClose();
     } catch (error) {
@@ -83,25 +67,11 @@ export default function NoteForm({
     }
   };
 
-  const handleEdit = () => {
-    onOpen();
-  };
-
   return (
     <>
-      {!isEditing && (
-        <ColumnButton leftIcon={<FiPlus />} onClick={onOpen}>
-          Create
-        </ColumnButton>
-      )}
-      {isEditing && (
-        <IconButton
-          variant="ghost"
-          aria-label="edit"
-          icon={<AiOutlineEdit />}
-          onClick={handleEdit}
-        />
-      )}
+      <ColumnButton leftIcon={<FiPlus />} onClick={onOpen}>
+        Create
+      </ColumnButton>
       <Modal
         isCentered
         onClose={onModalClose}
@@ -230,13 +200,8 @@ export default function NoteForm({
                 </Collapse>
               </FormControl>
               <ModalFooter>
-                <Button
-                  colorScheme="teal"
-                  mr={3}
-                  type="submit"
-                  onClick={onModalClose}
-                >
-                  {isEditing ? "Update" : "Create"}
+                <Button colorScheme="teal" mr={3} type="submit">
+                  Create
                 </Button>
                 <Button variant="ghost" onClick={onModalClose}>
                   Cancel

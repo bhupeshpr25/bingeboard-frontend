@@ -8,10 +8,55 @@ import {
   Text as ChakraText,
   Divider,
   useBreakpointValue,
+  Flex,
+  IconButton,
+  Button,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  useDisclosure,
 } from "@chakra-ui/react";
+import { AiOutlineDelete, AiOutlineMore } from "react-icons/ai";
+import { deleteNote } from "../services/apiNote";
+import useAuth from "../hooks/useAuth";
+import { useState } from "react";
+import NoteForm from "./NoteForm";
+import { INote } from "../api/types";
 
-function SingleNote({ note }: any) {
+interface SingleNoteProps {
+  note: INote;
+}
+
+function SingleNote({ note }: SingleNoteProps) {
   const alignCenter = useBreakpointValue({ base: true, lg: false });
+  const { getToken } = useAuth();
+  const [isEditing, setIsEditing] = useState(false);
+  const [isButtonVisible, setIsButtonVisible] = useState(true);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const handleDelete = async () => {
+    try {
+      await deleteNote(note.id, getToken());
+      // Handle success
+    } catch (error) {
+      console.error(error);
+      // Handle error
+    }
+  };
+
+  const handleEdit = () => {
+    setIsEditing(true);
+    setIsButtonVisible(false);
+  };
+
+  const handleCancelEdit = () => {
+    setIsEditing(false);
+  };
+
   return (
     <Box
       width={{ base: "90%", lg: "container.md" }}
@@ -67,9 +112,69 @@ function SingleNote({ note }: any) {
             </Badge>
             {note.body}
           </ChakraText>
-          <Badge fontSize="xs" rounded="md" fontWeight="medium">
-            {note.tag}
-          </Badge>
+          <Flex align="center" justify="space-between" mt="4">
+            <Badge fontSize="xs" rounded="md" fontWeight="medium">
+              {note.tag}
+            </Badge>
+            <HStack>
+              {isButtonVisible && (
+                <IconButton
+                  variant="ghost"
+                  aria-label="edit"
+                  onClick={handleEdit}
+                  icon={<AiOutlineMore />}
+                />
+              )}
+              {isEditing && (
+                <>
+                  <NoteForm
+                    onClose={handleCancelEdit}
+                    initialValues={{
+                      title: note.title,
+                      body: note.body,
+                      tag: note.tag,
+                      season: note.season,
+                      episode: note.episode,
+                      timestampHr: note.timestampHr,
+                      timestampMin: note.timestampMin,
+                      timestampSec: note.timestampSec,
+                    }}
+                    isEditing={isEditing}
+                    note={note}
+                    setIsEditing={setIsEditing}
+                  />
+                  <IconButton
+                    variant="ghost"
+                    aria-label="delete"
+                    icon={<AiOutlineDelete />}
+                    onClick={onOpen}
+                  />
+
+                  <Modal isOpen={isOpen} onClose={onClose} isCentered>
+                    <ModalOverlay />
+                    <ModalContent>
+                      <ModalHeader>Delete Note</ModalHeader>
+                      <ModalCloseButton />
+                      <ModalBody>Are you sure?</ModalBody>
+
+                      <ModalFooter>
+                        <Button
+                          colorScheme="blue"
+                          mr={3}
+                          onClick={handleDelete}
+                        >
+                          Delete
+                        </Button>
+                        <Button variant="ghost" onClick={onClose}>
+                          Cancel
+                        </Button>
+                      </ModalFooter>
+                    </ModalContent>
+                  </Modal>
+                </>
+              )}
+            </HStack>
+          </Flex>
         </Stack>
       </Box>
     </Box>

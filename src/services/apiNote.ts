@@ -52,3 +52,43 @@ export async function createNote(
     throw new Error("Failed to create note");
   }
 }
+
+export async function updateNote(
+  noteId: string,
+  data: NoteFormValues,
+  token: string
+) {
+  try {
+    const config: AxiosRequestConfig = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const response = await axios.put(
+      `${API_BASE_URL}/note/${noteId}`,
+      data,
+      config
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to update note");
+  }
+}
+
+export async function deleteNote(noteId: string, token: string): Promise<void> {
+  try {
+    const config: AxiosRequestConfig = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    await axios.delete(`${API_BASE_URL}/note/${noteId}`, config);
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to delete note");
+  }
+}

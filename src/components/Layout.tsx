@@ -100,26 +100,8 @@ function Layout() {
               />
               {mediaIsScrolled && <ColumnHeading>media</ColumnHeading>}
             </HStack>
-            <HStack>
-              <Menu isLazy>
-                <MenuButton
-                  px={4}
-                  py={2}
-                  transition="all 0.1s"
-                  borderRadius="md"
-                  borderWidth="1px"
-                  _hover={{ bg: "gray.700" }}
-                >
-                  <FiMoreVertical />
-                </MenuButton>
-                <MenuList>
-                  <MenuItem>Share</MenuItem>
-                  <MenuItem>Edit</MenuItem>
-                  <MenuItem>Delete</MenuItem>
-                </MenuList>
-              </Menu>
-              <NoteForm />
-            </HStack>
+
+            <NoteForm />
           </HStack>
         </ColumnHeader>
         <SingleMedia />

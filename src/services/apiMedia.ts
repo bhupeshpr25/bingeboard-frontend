@@ -60,3 +60,50 @@ export async function createMedium(data: MediaFormValues, token: string) {
     throw new Error("Failed to create medium");
   }
 }
+
+export async function updateMedia(
+  mediaId: string,
+  data: MediaFormValues,
+  token: string
+) {
+  try {
+    const config: AxiosRequestConfig = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const response = await axios.put(
+      `${API_BASE_URL}/media/${mediaId}`,
+      data,
+      config
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to update medium");
+  }
+}
+
+export async function deleteMedia(mediaId: string, token: string) {
+  try {
+    const config: AxiosRequestConfig = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const response = await axios.delete(
+      `${API_BASE_URL}/media/${mediaId}`,
+      config
+    );
+
+    console.log("Media deleted successfully!");
+
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to delete media");
+  }
+}
