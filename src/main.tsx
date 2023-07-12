@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import { ChakraProvider } from "@chakra-ui/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { StateContextProvider } from "./context/index.tsx";
+import { StateContextProvider } from "./context/StateContext.tsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {

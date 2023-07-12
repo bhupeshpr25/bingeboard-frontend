@@ -21,11 +21,11 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { AiOutlineDelete, AiOutlineMore } from "react-icons/ai";
-import { deleteNote } from "../services/apiNote";
-import useAuth from "../hooks/useAuth";
+import { deleteNote } from "../../services/apiNote";
+import useAuth from "../../hooks/useAuth";
 import { useState } from "react";
 import NoteForm from "./NoteForm";
-import { INote } from "../api/types";
+import { INote } from "../../api/types";
 
 interface SingleNoteProps {
   note: INote;

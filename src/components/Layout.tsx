@@ -10,16 +10,19 @@ import {
 import { useState } from "react";
 import { FiArrowLeft, FiMenu } from "react-icons/fi";
 import { ColumnHeader, ColumnHeading, ColumnIconButton } from "./Column";
-import { SingleMedia } from "./SingleMedia";
+import { SingleMedia } from "./Media/SingleMedia";
 import { Navbar } from "./NavMenu";
-import MediaForm from "./MediaForm";
-import MediaListContainer from "./MediaListContainer";
-import NoteForm from "./NoteForm";
+import MediaForm from "./Media/MediaForm";
+import MediaListContainer from "./Media/MediaListContainer";
+import NoteForm from "./Note/NoteForm";
 
 function Layout() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [sidebarIsScrolled, setSidebarIsScrolled] = useState(false);
   const [mediaIsScrolled, setMediaIsScrolled] = useState(false);
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isEditingMedia, setIsEditingMedia] = useState(false);
+  const [isEditingNote, setIsEditingNote] = useState(false);
+
   return (
     <Flex height="100vh">
       <Box
@@ -65,9 +68,13 @@ function Layout() {
                   <Navbar onClose={onClose} />
                 </DrawerContent>
               </Drawer>
-              <ColumnHeading>MediaList</ColumnHeading>
+              <ColumnHeading>Media</ColumnHeading>
             </HStack>
-            <MediaForm />
+            <MediaForm
+              onClose={onClose}
+              isEditing={isEditingMedia}
+              setIsEditing={setIsEditingMedia}
+            />
           </HStack>
         </ColumnHeader>
         <MediaListContainer />
@@ -88,10 +95,14 @@ function Layout() {
                   md: "none",
                 }}
               />
-              {mediaIsScrolled && <ColumnHeading>media</ColumnHeading>}
+              {mediaIsScrolled && <ColumnHeading>Notes</ColumnHeading>}
             </HStack>
 
-            <NoteForm />
+            <NoteForm
+              onClose={onClose}
+              isEditing={isEditingNote}
+              setIsEditing={setIsEditingNote}
+            />
           </HStack>
         </ColumnHeader>
         <SingleMedia />

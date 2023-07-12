@@ -2,8 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import { getMedia } from "../services/apiMedia";
-import { useStateContext } from "../context";
-import MediaListContainer from "../components/MediaListContainer";
+import MediaListContainer from "../components/Media/MediaListContainer";
 
 interface MediaItem {
   id: string;
@@ -18,14 +17,9 @@ const Home = () => {
 
   const token = getToken() ?? "";
 
-  const stateContext = useStateContext();
-  const user = stateContext.state.authUser;
-
-  const {
-    data: media,
-    isLoading,
-    isError,
-  } = useQuery<MediaItem[], Error>(["media"], () => getMedia(token));
+  const { isLoading, isError } = useQuery<MediaItem[], Error>(["media"], () =>
+    getMedia(token)
+  );
 
   if (!authUser) {
     navigate("/signin");

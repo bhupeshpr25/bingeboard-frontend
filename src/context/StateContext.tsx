@@ -1,5 +1,4 @@
-// context/StateContext.tsx
-import React, { createContext, useReducer, ReactNode } from "react";
+import { createContext, useReducer, ReactNode } from "react";
 import { IUser } from "../api/types";
 import { MediaContextProvider } from "./MediaContext";
 
@@ -49,14 +48,4 @@ export const StateContextProvider = ({
       <MediaContextProvider>{children}</MediaContextProvider>
     </StateContext.Provider>
   );
-};
-
-export const useStateContext = () => {
-  const context = React.useContext(StateContext);
-
-  if (context) {
-    return context;
-  }
-
-  throw new Error(`useStateContext must be used within a StateContextProvider`);
 };

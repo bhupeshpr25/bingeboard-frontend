@@ -21,6 +21,17 @@ import {
 } from "react-icons/fi";
 import { ColumnHeader, ColumnIconButton } from "./Column";
 import { Link } from "react-router-dom";
+import { IconType } from "react-icons";
+
+interface NavLinkProps {
+  icon: IconType;
+  to: string;
+  children: React.ReactNode;
+}
+
+interface NavHeadingProps {
+  children: React.ReactNode;
+}
 
 export const DarkModeToggle = () => {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -121,7 +132,7 @@ export const Navbar = (props: any) => {
   );
 };
 
-export const NavLink = (props: any) => {
+export const NavLink = (props: NavLinkProps) => {
   const { icon, to } = props;
   return (
     <Box
@@ -148,7 +159,7 @@ export const NavLink = (props: any) => {
   );
 };
 
-export const NavHeading = (props: any) => (
+export const NavHeading = (props: NavHeadingProps) => (
   <Text
     as="h4"
     fontSize="xs"

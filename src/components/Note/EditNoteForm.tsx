@@ -17,13 +17,13 @@ import {
   Box,
 } from "@chakra-ui/react";
 import { FiChevronDown, FiPlus } from "react-icons/fi";
-import { ColumnButton } from "./Column";
+import { ColumnButton } from "../Column";
 import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import useAuth from "../hooks/useAuth";
-import { createNote } from "../services/apiNote";
-import { useMediaId } from "../hooks/useMediaId";
+import useAuth from "../../hooks/useAuth";
+import { createNote } from "../../services/apiNote";
+import { useMediaId } from "../../hooks/useMediaId";
 
 const noteSchema = z.object({
   title: z.string().min(2, "Longer title is required").max(100),

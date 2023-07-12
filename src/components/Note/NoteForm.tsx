@@ -18,14 +18,14 @@ import {
   IconButton,
 } from "@chakra-ui/react";
 import { FiChevronDown, FiPlus } from "react-icons/fi";
-import { ColumnButton } from "./Column";
+import { ColumnButton } from "../Column";
 import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import useAuth from "../hooks/useAuth";
-import { createNote, updateNote } from "../services/apiNote";
-import { useMediaId } from "../hooks/useMediaId";
-import { INote, NoteFormValues } from "../api/types";
+import useAuth from "../../hooks/useAuth";
+import { createNote, updateNote } from "../../services/apiNote";
+import { useMediaId } from "../../hooks/useMediaId";
+import { INote, NoteFormValues } from "../../api/types";
 import { AiOutlineEdit } from "react-icons/ai";
 
 const noteSchema = z.object({
@@ -52,7 +52,6 @@ export default function NoteForm({
   initialValues,
   isEditing,
   note,
-  setIsEditing,
 }: NoteFormProps) {
   const { isOpen, onOpen, onClose: onModalClose } = useDisclosure();
   const { isOpen: isToggleOpen, onToggle } = useDisclosure();

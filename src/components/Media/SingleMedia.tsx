@@ -20,14 +20,14 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
-import { getMediaToken, getMedium, deleteMedia } from "../services/apiMedia";
+import { getMediaToken, getMedium, deleteMedia } from "../../services/apiMedia";
 import { useQuery } from "@tanstack/react-query";
-import SingleNote from "./SingleNote";
-import useAuth from "../hooks/useAuth";
+import SingleNote from "../Note/SingleNote";
+import useAuth from "../../hooks/useAuth";
 import { AiOutlineDelete, AiOutlineMore } from "react-icons/ai";
 import { useState } from "react";
 import MediaForm from "./MediaForm";
-import { INote } from "../api/types";
+import { INote } from "../../api/types";
 
 export const SingleMedia: React.FC = () => {
   const { mediaId } = useParams<{ mediaId?: string }>();

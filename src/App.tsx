@@ -8,7 +8,7 @@ import Layout from "./components/Layout";
 import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { SingleMedia } from "./components/SingleMedia";
+import { SingleMedia } from "./components/Media/SingleMedia";
 
 function App() {
   return (

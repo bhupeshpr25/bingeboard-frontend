@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import useAuth from "../hooks/useAuth";
+import useAuth from "../../hooks/useAuth";
 import { MediaList } from "./MediaList";
 
 interface MediaItem {
@@ -19,9 +19,6 @@ export default function MediaListContainer() {
   useEffect(() => {
     const fetchMediaList = async () => {
       const token = getToken();
-
-      setIsLoading(true);
-      setError("");
 
       try {
         const response = await axios.get(

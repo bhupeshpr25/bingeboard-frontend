@@ -1,12 +1,16 @@
 import {
   Button,
+  ButtonProps,
   Flex,
+  FlexProps,
   Heading,
+  HeadingProps,
   IconButton,
+  IconButtonProps,
   useColorModeValue as mode,
 } from "@chakra-ui/react";
 
-export const ColumnHeader = (props: any) => (
+export const ColumnHeader = (props: FlexProps) => (
   <Flex
     minH="12"
     position="sticky"
@@ -19,10 +23,10 @@ export const ColumnHeader = (props: any) => (
     {...props}
   />
 );
-export const ColumnHeading = (props: any) => (
+export const ColumnHeading = (props: HeadingProps) => (
   <Heading fontWeight="bold" fontSize="sm" lineHeight="1.25rem" {...props} />
 );
-export const ColumnButton = (props: any) => (
+export const ColumnButton = (props: ButtonProps) => (
   <Button
     variant="outline"
     size="sm"
@@ -42,7 +46,7 @@ export const ColumnButton = (props: any) => (
     {...props}
   />
 );
-export const ColumnIconButton = (props: any) => (
+export const ColumnIconButton = (props: IconButtonProps) => (
   <IconButton
     size="sm"
     fontSize="md"

@@ -17,13 +17,13 @@ import {
   IconButton,
 } from "@chakra-ui/react";
 import { FiPlus } from "react-icons/fi";
-import { ColumnButton } from "./Column";
+import { ColumnButton } from "../Column";
 import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createMedium, updateMedia } from "../services/apiMedia";
-import useAuth from "../hooks/useAuth";
-import { IMedia, Medium } from "../api/types";
+import { createMedium, updateMedia } from "../../services/apiMedia";
+import useAuth from "../../hooks/useAuth";
+import { IMedia, Medium } from "../../api/types";
 import { AiOutlineEdit } from "react-icons/ai";
 
 const mediaSchema = z.object({
@@ -47,7 +47,6 @@ export default function NoteForm({
   initialValues,
   isEditing,
   media,
-  setIsEditing,
 }: MediaFormProps) {
   const { isOpen, onOpen, onClose: onModalClose } = useDisclosure();
   const { getToken } = useAuth();

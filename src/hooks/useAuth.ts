@@ -1,4 +1,4 @@
-import { useStateContext } from "../context";
+import { useStateContext } from "../utils/stateContextUtils";
 import { IUser } from "../api/types";
 
 const TOKEN_KEY = "jwtToken";
