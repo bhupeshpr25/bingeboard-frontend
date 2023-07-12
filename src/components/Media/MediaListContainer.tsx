@@ -2,6 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import { MediaList } from "./MediaList";
+import { useToast } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 interface MediaItem {
   id: string;
@@ -15,6 +17,9 @@ export default function MediaListContainer() {
   const [mediaList, setMediaList] = useState<MediaItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
+
+  const toast = useToast();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchMediaList = async () => {
@@ -33,8 +38,16 @@ export default function MediaListContainer() {
         const fetchedMediaList = response.data.data;
         setMediaList(fetchedMediaList);
       } catch (error) {
-        console.error("Error fetching media list:", error);
         setError("Error fetching media. Please try again later.");
+        toast({
+          title: "Account not found",
+          description: "Redirecting to sign in page",
+          status: "warning",
+          duration: 5000,
+          isClosable: true,
+        });
+
+        navigate("/signin");
       } finally {
         setIsLoading(false);
       }

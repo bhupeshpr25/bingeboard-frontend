@@ -35,10 +35,14 @@ interface NavHeadingProps {
 
 export const DarkModeToggle = () => {
   const { colorMode, toggleColorMode } = useColorMode();
+
+  if (colorMode === "light") {
+    toggleColorMode();
+  }
   return (
     <header>
-      <Icon fontSize="xl" mt="2" cursor="pointer" onClick={toggleColorMode}>
-        {colorMode === "light" ? <FiMoon /> : <FiSun />}
+      <Icon fontSize="xl" m="6" cursor="pointer" onClick={toggleColorMode}>
+        {colorMode === "dark" ? <FiMoon /> : <FiSun />}
       </Icon>
     </header>
   );
@@ -105,6 +109,7 @@ export const Navbar = (props: any) => {
             <Text fontWeight="bold" fontSize="md" lineHeight="1.25rem">
               bingeboard
             </Text>
+            <DarkModeToggle />
           </HStack>
         </ColumnHeader>
 
