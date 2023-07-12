@@ -41,6 +41,7 @@ function SingleNote({ note }: SingleNoteProps) {
   const handleDelete = async () => {
     try {
       await deleteNote(note.id, getToken());
+      onClose();
       // Handle success
     } catch (error) {
       console.error(error);

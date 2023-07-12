@@ -54,6 +54,7 @@ export const SingleMedia: React.FC = () => {
     try {
       if (mediaId) {
         await deleteMedia(mediaId, getToken());
+        onClose();
         // Handle success
       }
     } catch (error) {
@@ -90,7 +91,7 @@ export const SingleMedia: React.FC = () => {
               >
                 {media.title}
               </Heading>
-              <Text color={mode("blackAlpha.600", "whiteAlpha.600")}>
+              <Text mt="4" color={mode("blackAlpha.600", "whiteAlpha.600")}>
                 {media.type}
               </Text>
             </Box>
@@ -171,7 +172,9 @@ export const SingleMedia: React.FC = () => {
                 ))}
               </List>
             ) : (
-              <Text>No notes found.</Text>
+              <Center m="8" fontSize="2xl">
+                No notes found :&#40;
+              </Center>
             )}
           </Stack>
         </Stack>

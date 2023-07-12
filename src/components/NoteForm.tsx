@@ -75,6 +75,7 @@ export default function NoteForm({
         await updateNote(note.id, data, getToken());
       } else {
         await createNote(data, currentMediaId, getToken());
+        console.log(data);
       }
       reset();
       onClose();

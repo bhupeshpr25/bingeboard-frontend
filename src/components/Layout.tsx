@@ -5,23 +5,13 @@ import {
   DrawerOverlay,
   Flex,
   HStack,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
   useDisclosure,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { FiArrowLeft, FiMenu, FiMoreVertical, FiPlus } from "react-icons/fi";
-import {
-  ColumnButton,
-  ColumnHeader,
-  ColumnHeading,
-  ColumnIconButton,
-} from "./Column";
+import { FiArrowLeft, FiMenu } from "react-icons/fi";
+import { ColumnHeader, ColumnHeading, ColumnIconButton } from "./Column";
 import { SingleMedia } from "./SingleMedia";
 import { Navbar } from "./NavMenu";
-import { MediaList } from "./MediaList";
 import MediaForm from "./MediaForm";
 import MediaListContainer from "./MediaListContainer";
 import NoteForm from "./NoteForm";
