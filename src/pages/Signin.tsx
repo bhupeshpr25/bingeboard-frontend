@@ -177,7 +177,7 @@ export default function Signin() {
                   <Stack spacing="6">
                     <Button
                       type="submit"
-                      colorScheme="teal"
+                      bg="teal.500"
                       variant="primary"
                       color="white"
                       _hover={{ bg: "teal.400" }}

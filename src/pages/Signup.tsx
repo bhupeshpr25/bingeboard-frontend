@@ -197,7 +197,7 @@ export default function Signup() {
                   <Stack spacing="6">
                     <Button
                       type="submit"
-                      colorScheme="teal"
+                      bg="teal.500"
                       variant="primary"
                       _hover={{ bg: "teal.400" }}
                       disabled={isSubmitting}
