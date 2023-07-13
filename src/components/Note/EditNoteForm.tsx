@@ -28,12 +28,12 @@ import { useMediaId } from "../../hooks/useMediaId";
 const noteSchema = z.object({
   title: z.string().min(2, "Longer title is required").max(100),
   body: z.string().max(1000).optional(),
-  tag: z.string().min(3).max(10),
-  season: z.number().min(1).max(100),
-  episode: z.number().min(1).max(100),
-  timestampHr: z.number().min(0).max(23),
-  timestampMin: z.number().min(0).max(59),
-  timestampSec: z.number().min(0).max(59),
+  tag: z.string().min(3).max(10).optional(),
+  season: z.number().min(1).max(100).optional(),
+  episode: z.number().min(1).max(100).optional(),
+  timestampHr: z.number().min(0).max(23).optional(),
+  timestampMin: z.number().min(0).max(59).optional(),
+  timestampSec: z.number().min(0).max(59).optional(),
 });
 
 type NoteFormValues = z.infer<typeof noteSchema>;
@@ -88,7 +88,7 @@ export default function NoteForm({ onClose, initialValues }: NoteFormProps) {
                 <FormLabel>Note Title</FormLabel>
                 <Input placeholder="" {...register("title")} />
                 {errors.title && (
-                  <Box mt="2" color="red-800">
+                  <Box mt="2" color="red.300">
                     {errors.title?.message}
                   </Box>
                 )}
@@ -98,7 +98,7 @@ export default function NoteForm({ onClose, initialValues }: NoteFormProps) {
                 <FormLabel>Body</FormLabel>
                 <Textarea placeholder="" {...register("body")} />
                 {errors.body && (
-                  <Box mt="2" color="red-800">
+                  <Box mt="2" color="red.300">
                     {errors.body?.message}
                   </Box>
                 )}
@@ -118,7 +118,7 @@ export default function NoteForm({ onClose, initialValues }: NoteFormProps) {
                       <FormLabel>tag</FormLabel>
                       <Input {...register("tag")} />
                       {errors.tag && (
-                        <Box mt="2" color="red-800">
+                        <Box mt="2" color="red.300">
                           {errors.tag?.message}
                         </Box>
                       )}
@@ -133,7 +133,7 @@ export default function NoteForm({ onClose, initialValues }: NoteFormProps) {
                           {...register("season", { valueAsNumber: true })}
                         />
                         {errors.season && (
-                          <Box mt="2" color="red-800">
+                          <Box mt="2" color="red.300">
                             {errors.season?.message}
                           </Box>
                         )}
@@ -147,7 +147,7 @@ export default function NoteForm({ onClose, initialValues }: NoteFormProps) {
                           {...register("episode", { valueAsNumber: true })}
                         />
                         {errors.episode && (
-                          <Box mt="2" color="red-800">
+                          <Box mt="2" color="red.300">
                             {errors.episode?.message}
                           </Box>
                         )}
@@ -164,7 +164,7 @@ export default function NoteForm({ onClose, initialValues }: NoteFormProps) {
                           {...register("timestampHr", { valueAsNumber: true })}
                         />
                         {errors.timestampHr && (
-                          <Box mt="2" color="red-800">
+                          <Box mt="2" color="red.300">
                             {errors.timestampHr?.message}
                           </Box>
                         )}
@@ -177,7 +177,7 @@ export default function NoteForm({ onClose, initialValues }: NoteFormProps) {
                           {...register("timestampMin", { valueAsNumber: true })}
                         />
                         {errors.timestampMin && (
-                          <Box mt="2" color="red-800">
+                          <Box mt="2" color="red.300">
                             {errors.timestampMin?.message}
                           </Box>
                         )}
@@ -190,7 +190,7 @@ export default function NoteForm({ onClose, initialValues }: NoteFormProps) {
                           {...register("timestampSec", { valueAsNumber: true })}
                         />
                         {errors.timestampSec && (
-                          <Box mt="2" color="red-800">
+                          <Box mt="2" color="red.300">
                             {errors.timestampSec?.message}
                           </Box>
                         )}
@@ -200,7 +200,12 @@ export default function NoteForm({ onClose, initialValues }: NoteFormProps) {
                 </Collapse>
               </FormControl>
               <ModalFooter>
-                <Button colorScheme="teal" mr={3} type="submit">
+                <Button
+                  colorScheme="teal"
+                  mr={3}
+                  type="submit"
+                  onClick={onModalClose}
+                >
                   Create
                 </Button>
                 <Button variant="ghost" onClick={onModalClose}>

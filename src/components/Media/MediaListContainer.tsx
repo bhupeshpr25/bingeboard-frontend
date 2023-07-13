@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import { MediaList } from "./MediaList";
-import { useToast } from "@chakra-ui/react";
+import { Center, useToast } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
 interface MediaItem {
@@ -57,7 +57,11 @@ export default function MediaListContainer() {
   }, []);
 
   if (isLoading) {
-    return <div>Loading media...</div>;
+    return (
+      <Center m="8" fontSize="2xl" color="gray.500" fontWeight="semibold">
+        loading...
+      </Center>
+    );
   }
 
   if (error) {

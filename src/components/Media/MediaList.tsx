@@ -1,4 +1,9 @@
-import { Stack, useColorModeValue as mode } from "@chakra-ui/react";
+import {
+  Box,
+  Center,
+  Stack,
+  useColorModeValue as mode,
+} from "@chakra-ui/react";
 import MediaListCard from "./MediaListCard";
 
 interface MediaListProps {
@@ -12,7 +17,11 @@ interface MediaListProps {
 
 export const MediaList: React.FC<MediaListProps> = ({ media }) => {
   if (media.length === 0) {
-    return <div>No media available.</div>;
+    return (
+      <Center m="8" fontSize="2xl" color="gray.500" fontWeight="semibold">
+        No media found :&#40;
+      </Center>
+    );
   }
   return (
     <Stack

@@ -47,7 +47,11 @@ export const SingleMedia: React.FC = () => {
   });
 
   if (isMediaLoading) {
-    return <p>Loading...</p>;
+    return (
+      <Center m="8" fontSize="2xl" color="gray.500" fontWeight="semibold">
+        loading...
+      </Center>
+    );
   }
 
   const handleDelete = async () => {
@@ -172,7 +176,12 @@ export const SingleMedia: React.FC = () => {
                 ))}
               </List>
             ) : (
-              <Center m="8" fontSize="2xl">
+              <Center
+                m="8"
+                fontSize="2xl"
+                color="gray.500"
+                fontWeight="semibold"
+              >
                 No notes found :&#40;
               </Center>
             )}

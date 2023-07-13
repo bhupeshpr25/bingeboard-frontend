@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAuth from "../hooks/useAuth";
 import { getMedia } from "../services/apiMedia";
 import MediaListContainer from "../components/Media/MediaListContainer";
+import { Center } from "@chakra-ui/react";
 
 interface MediaItem {
   id: string;
@@ -20,11 +21,19 @@ const Home = () => {
   );
 
   if (isLoading) {
-    return <div>Loading your media...</div>;
+    return (
+      <Center m="8" fontSize="2xl" color="gray.500" fontWeight="semibold">
+        loading your media...
+      </Center>
+    );
   }
 
   if (isError) {
-    return <div>Error fetching media</div>;
+    return (
+      <Center m="8" fontSize="2xl" color="gray.500" fontWeight="semibold">
+        error fetching media :/
+      </Center>
+    );
   }
 
   return (

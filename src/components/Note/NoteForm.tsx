@@ -13,11 +13,11 @@ import {
   Input,
   Textarea,
   HStack,
-  Collapse,
+  // Collapse,
   Box,
   IconButton,
 } from "@chakra-ui/react";
-import { FiChevronDown, FiPlus } from "react-icons/fi";
+import { FiPlus } from "react-icons/fi";
 import { ColumnButton } from "../Column";
 import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -33,7 +33,7 @@ const noteSchema = z.object({
   body: z.string().max(1000).optional(),
   tag: z.string().min(3).max(10).optional(),
   season: z.number().min(1).max(100).optional(),
-  episode: z.number().min(1).max(100),
+  episode: z.number().min(1).max(100).optional(),
   timestampHr: z.number().min(0).max(23).optional(),
   timestampMin: z.number().min(0).max(59).optional(),
   timestampSec: z.number().min(0).max(59).optional(),
@@ -54,7 +54,7 @@ export default function NoteForm({
   note,
 }: NoteFormProps) {
   const { isOpen, onOpen, onClose: onModalClose } = useDisclosure();
-  const { isOpen: isToggleOpen, onToggle } = useDisclosure();
+  // const { isOpen: isToggleOpen, onToggle } = useDisclosure();
   const { getToken } = useAuth();
   const currentMediaId = useMediaId();
 
@@ -115,119 +115,119 @@ export default function NoteForm({
           <ModalBody>
             <form onSubmit={handleSubmit(onSubmit)}>
               <FormControl>
-                <FormLabel>Note Title</FormLabel>
+                <FormLabel fontWeight="semibold">Note Title</FormLabel>
                 <Input placeholder="" {...register("title")} />
                 {errors.title && (
-                  <Box mt="2" color="red-800">
+                  <Box mt="2" color="red.300">
                     {errors.title?.message}
                   </Box>
                 )}
               </FormControl>
 
               <FormControl mt="4">
-                <FormLabel>Body</FormLabel>
+                <FormLabel fontWeight="semibold">Body</FormLabel>
                 <Textarea placeholder="" {...register("body")} />
                 {errors.body && (
-                  <Box mt="2" color="red-800">
+                  <Box mt="2" color="red.300">
                     {errors.body?.message}
                   </Box>
                 )}
               </FormControl>
 
-              <FormControl>
+              {/* <FormControl>
                 <HStack onClick={onToggle} mt="4" cursor="pointer">
                   <Box>Additional Fields</Box>
                   <FiChevronDown />
                 </HStack>
-              </FormControl>
+              </FormControl> */}
 
               <FormControl>
-                <Collapse in={isToggleOpen} animateOpacity>
-                  <FormControl mt="4">
+                {/* <Collapse in={isToggleOpen} animateOpacity> */}
+                <FormControl mt="4">
+                  <HStack>
+                    <FormLabel fontWeight="semibold">tag</FormLabel>
+                    <Input {...register("tag")} />
+                    {errors.tag && (
+                      <Box mt="2" color="red.300">
+                        {errors.tag?.message}
+                      </Box>
+                    )}
+                  </HStack>
+                </FormControl>
+                <HStack spacing="8">
+                  <FormControl>
                     <HStack>
-                      <FormLabel>tag</FormLabel>
-                      <Input {...register("tag")} />
-                      {errors.tag && (
-                        <Box mt="2" color="red-800">
-                          {errors.tag?.message}
+                      <FormLabel fontWeight="semibold">season</FormLabel>
+                      <Input
+                        type="number"
+                        {...register("season", { valueAsNumber: true })}
+                      />
+                      {errors.season && (
+                        <Box mt="2" color="red.300">
+                          {errors.season?.message}
                         </Box>
                       )}
                     </HStack>
                   </FormControl>
-                  <HStack spacing="8">
-                    <FormControl>
-                      <HStack>
-                        <FormLabel>season</FormLabel>
-                        <Input
-                          type="number"
-                          {...register("season", { valueAsNumber: true })}
-                        />
-                        {errors.season && (
-                          <Box mt="2" color="red-800">
-                            {errors.season?.message}
-                          </Box>
-                        )}
-                      </HStack>
-                    </FormControl>
-                    <FormControl my="6">
-                      <HStack>
-                        <FormLabel>episode</FormLabel>
-                        <Input
-                          type="number"
-                          {...register("episode", { valueAsNumber: true })}
-                        />
-                        {errors.episode && (
-                          <Box mt="2" color="red-800">
-                            {errors.episode?.message}
-                          </Box>
-                        )}
-                      </HStack>
-                    </FormControl>
-                  </HStack>
-                  <FormControl>
-                    <FormLabel>timestamp</FormLabel>
+                  <FormControl my="6">
                     <HStack>
-                      <HStack>
-                        <FormLabel>hr</FormLabel>
-                        <Input
-                          type="number"
-                          {...register("timestampHr", { valueAsNumber: true })}
-                        />
-                        {errors.timestampHr && (
-                          <Box mt="2" color="red-800">
-                            {errors.timestampHr?.message}
-                          </Box>
-                        )}
-                      </HStack>
-                      <FormLabel>:</FormLabel>
-                      <HStack>
-                        <FormLabel>min</FormLabel>
-                        <Input
-                          type="number"
-                          {...register("timestampMin", { valueAsNumber: true })}
-                        />
-                        {errors.timestampMin && (
-                          <Box mt="2" color="red-800">
-                            {errors.timestampMin?.message}
-                          </Box>
-                        )}
-                      </HStack>
-                      <FormLabel>:</FormLabel>
-                      <HStack>
-                        <FormLabel>sec</FormLabel>
-                        <Input
-                          type="number"
-                          {...register("timestampSec", { valueAsNumber: true })}
-                        />
-                        {errors.timestampSec && (
-                          <Box mt="2" color="red-800">
-                            {errors.timestampSec?.message}
-                          </Box>
-                        )}
-                      </HStack>
+                      <FormLabel fontWeight="semibold">episode</FormLabel>
+                      <Input
+                        type="number"
+                        {...register("episode", { valueAsNumber: true })}
+                      />
+                      {errors.episode && (
+                        <Box mt="2" color="red.300">
+                          {errors.episode?.message}
+                        </Box>
+                      )}
                     </HStack>
                   </FormControl>
-                </Collapse>
+                </HStack>
+                <FormControl>
+                  <FormLabel fontWeight="semibold">timestamp</FormLabel>
+                  <HStack>
+                    <HStack>
+                      <FormLabel fontWeight="normal">hr</FormLabel>
+                      <Input
+                        type="number"
+                        {...register("timestampHr", { valueAsNumber: true })}
+                      />
+                      {errors.timestampHr && (
+                        <Box mt="2" color="red.300">
+                          {errors.timestampHr?.message}
+                        </Box>
+                      )}
+                    </HStack>
+                    <FormLabel>:</FormLabel>
+                    <HStack>
+                      <FormLabel fontWeight="normal">min</FormLabel>
+                      <Input
+                        type="number"
+                        {...register("timestampMin", { valueAsNumber: true })}
+                      />
+                      {errors.timestampMin && (
+                        <Box mt="2" color="red.300">
+                          {errors.timestampMin?.message}
+                        </Box>
+                      )}
+                    </HStack>
+                    <FormLabel>:</FormLabel>
+                    <HStack>
+                      <FormLabel fontWeight="normal">sec</FormLabel>
+                      <Input
+                        type="number"
+                        {...register("timestampSec", { valueAsNumber: true })}
+                      />
+                      {errors.timestampSec && (
+                        <Box mt="2" color="red.300">
+                          {errors.timestampSec?.message}
+                        </Box>
+                      )}
+                    </HStack>
+                  </HStack>
+                </FormControl>
+                {/* </Collapse> */}
               </FormControl>
               <ModalFooter>
                 <Button
