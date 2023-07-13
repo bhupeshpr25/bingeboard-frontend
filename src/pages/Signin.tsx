@@ -80,9 +80,9 @@ export default function Signin() {
       }
       toast({
         title: "User signed in",
-        description: "The user has signed in successfully.",
+        description: "You have signed in successfully.",
         status: "success",
-        duration: 5000,
+        duration: 2000,
         isClosable: true,
       });
 
@@ -94,7 +94,7 @@ export default function Signin() {
         title: "Error",
         description: "An error occurred while signing in",
         status: "error",
-        duration: 5000,
+        duration: 2000,
         isClosable: true,
         render: () => (
           <Alert status="error">

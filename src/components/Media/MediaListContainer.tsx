@@ -41,9 +41,9 @@ export default function MediaListContainer() {
         setError("Error fetching media. Please try again later.");
         toast({
           title: "Account not found",
-          description: "Redirecting to sign in page",
+          description: "please sign in to continue",
           status: "warning",
-          duration: 5000,
+          duration: 2000,
           isClosable: true,
         });
 

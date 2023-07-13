@@ -7,9 +7,18 @@ import {
   useColorMode,
   useColorModeValue as mode,
   Box,
+  Button,
+  useToast,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  useDisclosure,
 } from "@chakra-ui/react";
 import {
-  FiBookmark,
   FiClock,
   FiFilm,
   FiGitlab,
@@ -17,11 +26,13 @@ import {
   FiStar,
   FiSun,
   FiTv,
+  FiUserMinus,
   FiX,
 } from "react-icons/fi";
 import { ColumnHeader, ColumnIconButton } from "./Column";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IconType } from "react-icons";
+import useAuth from "../hooks/useAuth";
 
 interface NavLinkProps {
   icon: IconType;
@@ -36,19 +47,39 @@ interface NavHeadingProps {
 export const DarkModeToggle = () => {
   const { colorMode, toggleColorMode } = useColorMode();
 
-  if (colorMode === "light") {
+  const handleClick = () => {
     toggleColorMode();
-  }
+  };
+
   return (
     <header>
-      <Icon fontSize="xl" m="6" cursor="pointer" onClick={toggleColorMode}>
-        {colorMode === "dark" ? <FiMoon /> : <FiSun />}
+      <Icon fontSize="xl" m="6" cursor="pointer" onClick={handleClick}>
+        {colorMode === "dark" ? <FiSun /> : <FiMoon />}
       </Icon>
     </header>
   );
 };
 
 export const Navbar = (props: any) => {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+  const toast = useToast();
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  function handleSignOut() {
+    logout();
+
+    toast({
+      title: "User signed out",
+      description: "You have signed out successfully.",
+      status: "success",
+      duration: 2000,
+      isClosable: true,
+    });
+    navigate("/signin");
+  }
+
   const defaultNavs = [
     {
       label: "Home",
@@ -105,11 +136,10 @@ export const Navbar = (props: any) => {
                 lg: "none",
               }}
             />
-            <FiBookmark />
-            <Text fontWeight="bold" fontSize="md" lineHeight="1.25rem">
+            <Text fontWeight="bold" fontSize="md" lineHeight="1.25rem" ml="3">
               bingeboard
             </Text>
-            <DarkModeToggle />
+            {/* <DarkModeToggle /> */}
           </HStack>
         </ColumnHeader>
 
@@ -133,6 +163,35 @@ export const Navbar = (props: any) => {
           </Stack>
         </Stack>
       </Stack>
+      <HStack
+        p="3"
+        m="2"
+        spacing="6"
+        borderRadius="lg"
+        _hover={{ bg: "gray.900", cursor: "pointer" }}
+        onClick={onOpen}
+      >
+        <Icon as={FiUserMinus} />
+        <Box color="gray.300">sign out</Box>
+      </HStack>
+
+      <Modal isOpen={isOpen} onClose={onClose} isCentered>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Sign Out</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>Are you sure?</ModalBody>
+
+          <ModalFooter>
+            <Button colorScheme="blue" mr={3} onClick={handleSignOut}>
+              Sign out
+            </Button>
+            <Button variant="ghost" onClick={onClose}>
+              Cancel
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </Flex>
   );
 };

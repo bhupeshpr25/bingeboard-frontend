@@ -85,7 +85,7 @@ export default function Signup() {
         title: "User created",
         description: "The user has been created successfully.",
         status: "success",
-        duration: 5000,
+        duration: 2000,
         isClosable: true,
       });
 
@@ -97,7 +97,7 @@ export default function Signup() {
         title: "Error",
         description: "An error occurred while creating the user.",
         status: "error",
-        duration: 5000,
+        duration: 2000,
         isClosable: true,
         render: () => (
           <Alert status="error">
