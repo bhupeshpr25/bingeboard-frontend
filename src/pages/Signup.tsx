@@ -197,9 +197,8 @@ export default function Signup() {
                   <Stack spacing="6">
                     <Button
                       type="submit"
-                      bg="teal.500"
+                      colorScheme="teal"
                       variant="primary"
-                      color="white"
                       _hover={{ bg: "teal.400" }}
                       disabled={isSubmitting}
                     >
@@ -208,11 +207,7 @@ export default function Signup() {
                   </Stack>
                   <HStack spacing="1" justify="center">
                     <Text color="gray.400">Already have an account?</Text>
-                    <Button
-                      variant="secondary"
-                      color="teal.500"
-                      colorScheme="blue"
-                    >
+                    <Button variant="secondary" colorScheme="teal">
                       <Link href="/signin">Sign in</Link>
                     </Button>
                   </HStack>

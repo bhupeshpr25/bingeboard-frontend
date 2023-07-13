@@ -40,7 +40,6 @@ const noteSchema = z.object({
 });
 
 interface NoteFormProps {
-  onClose: () => void;
   initialValues?: NoteFormValues;
   isEditing: boolean;
   note?: INote;
@@ -48,7 +47,6 @@ interface NoteFormProps {
 }
 
 export default function NoteForm({
-  onClose,
   initialValues,
   isEditing,
   note,
@@ -74,10 +72,9 @@ export default function NoteForm({
         await updateNote(note.id, data, getToken());
       } else {
         await createNote(data, currentMediaId, getToken());
-        console.log(data);
       }
       reset();
-      onClose();
+      onModalClose();
     } catch (error) {
       console.error(error);
     }
@@ -147,12 +144,12 @@ export default function NoteForm({
                   <HStack>
                     <FormLabel fontWeight="semibold">tag</FormLabel>
                     <Input {...register("tag")} />
-                    {errors.tag && (
-                      <Box mt="2" color="red.300">
-                        {errors.tag?.message}
-                      </Box>
-                    )}
                   </HStack>
+                  {errors.tag && (
+                    <Box mt="2" color="red.300">
+                      {errors.tag?.message}
+                    </Box>
+                  )}
                 </FormControl>
                 <HStack spacing="8">
                   <FormControl>
@@ -162,12 +159,12 @@ export default function NoteForm({
                         type="number"
                         {...register("season", { valueAsNumber: true })}
                       />
-                      {errors.season && (
-                        <Box mt="2" color="red.300">
-                          {errors.season?.message}
-                        </Box>
-                      )}
                     </HStack>
+                    {errors.season && (
+                      <Box mt="2" color="red.300">
+                        {errors.season?.message}
+                      </Box>
+                    )}
                   </FormControl>
                   <FormControl my="6">
                     <HStack>
@@ -176,12 +173,12 @@ export default function NoteForm({
                         type="number"
                         {...register("episode", { valueAsNumber: true })}
                       />
-                      {errors.episode && (
-                        <Box mt="2" color="red.300">
-                          {errors.episode?.message}
-                        </Box>
-                      )}
                     </HStack>
+                    {errors.episode && (
+                      <Box mt="2" color="red.300">
+                        {errors.episode?.message}
+                      </Box>
+                    )}
                   </FormControl>
                 </HStack>
                 <FormControl>
@@ -193,11 +190,6 @@ export default function NoteForm({
                         type="number"
                         {...register("timestampHr", { valueAsNumber: true })}
                       />
-                      {errors.timestampHr && (
-                        <Box mt="2" color="red.300">
-                          {errors.timestampHr?.message}
-                        </Box>
-                      )}
                     </HStack>
                     <FormLabel>:</FormLabel>
                     <HStack>
@@ -206,11 +198,6 @@ export default function NoteForm({
                         type="number"
                         {...register("timestampMin", { valueAsNumber: true })}
                       />
-                      {errors.timestampMin && (
-                        <Box mt="2" color="red.300">
-                          {errors.timestampMin?.message}
-                        </Box>
-                      )}
                     </HStack>
                     <FormLabel>:</FormLabel>
                     <HStack>
@@ -219,23 +206,18 @@ export default function NoteForm({
                         type="number"
                         {...register("timestampSec", { valueAsNumber: true })}
                       />
-                      {errors.timestampSec && (
-                        <Box mt="2" color="red.300">
-                          {errors.timestampSec?.message}
-                        </Box>
-                      )}
                     </HStack>
                   </HStack>
+                  {errors.timestampSec && (
+                    <Box mt="2" color="red.300">
+                      {errors.timestampSec?.message}
+                    </Box>
+                  )}
                 </FormControl>
                 {/* </Collapse> */}
               </FormControl>
               <ModalFooter>
-                <Button
-                  colorScheme="teal"
-                  mr={3}
-                  type="submit"
-                  onClick={onModalClose}
-                >
+                <Button colorScheme="teal" mr={3} type="submit">
                   {isEditing ? "Update" : "Create"}
                 </Button>
                 <Button variant="ghost" onClick={onModalClose}>

@@ -72,10 +72,6 @@ export const SingleMedia: React.FC = () => {
     setIsButtonVisible(false);
   };
 
-  const handleCancelEdit = () => {
-    setIsEditing(false);
-  };
-
   return (
     <Box as="main" height="full" bg={mode("gray.50", "gray.800")}>
       {media && (
@@ -111,7 +107,6 @@ export const SingleMedia: React.FC = () => {
               {isEditing && (
                 <>
                   <MediaForm
-                    onClose={handleCancelEdit}
                     initialValues={{
                       title: media.title,
                       description: media.description,
@@ -140,7 +135,7 @@ export const SingleMedia: React.FC = () => {
 
                       <ModalFooter>
                         <Button
-                          colorScheme="blue"
+                          colorScheme="teal"
                           mr={3}
                           onClick={handleDelete}
                         >

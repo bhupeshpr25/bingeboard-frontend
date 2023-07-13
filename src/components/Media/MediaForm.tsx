@@ -35,7 +35,6 @@ const mediaSchema = z.object({
 type MediaFormValues = z.infer<typeof mediaSchema>;
 
 interface MediaFormProps {
-  onClose: () => void;
   initialValues?: MediaFormValues;
   isEditing: boolean;
   media?: IMedia;
@@ -43,7 +42,6 @@ interface MediaFormProps {
 }
 
 export default function NoteForm({
-  onClose,
   initialValues,
   isEditing,
   media,
@@ -68,7 +66,7 @@ export default function NoteForm({
         await createMedium(data, getToken());
       }
       reset();
-      onClose();
+      onModalClose();
     } catch (error) {
       console.error(error);
     }
@@ -93,7 +91,12 @@ export default function NoteForm({
           onClick={handleEdit}
         />
       )}
-      <Modal isCentered onClose={onClose} isOpen={isOpen} motionPreset="scale">
+      <Modal
+        isCentered
+        onClose={onModalClose}
+        isOpen={isOpen}
+        motionPreset="scale"
+      >
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Create Media</ModalHeader>
@@ -104,13 +107,13 @@ export default function NoteForm({
                 <FormLabel>Media Title</FormLabel>
                 <Input placeholder="" {...register("title")} />
                 {errors.title && (
-                  <Box mt="2" color="red-800">
+                  <Box mt="2" color="red.300">
                     {errors.title?.message}
                   </Box>
                 )}
               </FormControl>
               <FormControl>
-                <FormLabel>Type</FormLabel>
+                <FormLabel my="2">Type</FormLabel>
                 <Select placeholder="" {...register("type")}>
                   <option value="movie">movie</option>
                   <option value="show">show</option>
@@ -132,12 +135,7 @@ export default function NoteForm({
                 )}
               </FormControl>
               <ModalFooter>
-                <Button
-                  colorScheme="teal"
-                  mr={3}
-                  type="submit"
-                  onClick={onModalClose}
-                >
+                <Button colorScheme="teal" mr={3} type="submit">
                   {isEditing ? "Update" : "Create"}
                 </Button>
                 <Button variant="ghost" onClick={onModalClose}>

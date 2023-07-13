@@ -183,7 +183,7 @@ export const Navbar = (props: any) => {
           <ModalBody>Are you sure?</ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={handleSignOut}>
+            <Button colorScheme="teal" mr={3} onClick={handleSignOut}>
               Sign out
             </Button>
             <Button variant="ghost" onClick={onClose}>

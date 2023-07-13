@@ -54,10 +54,6 @@ function SingleNote({ note }: SingleNoteProps) {
     setIsButtonVisible(false);
   };
 
-  const handleCancelEdit = () => {
-    setIsEditing(false);
-  };
-
   return (
     <Box
       width={{ base: "90%", lg: "container.md" }}
@@ -108,13 +104,18 @@ function SingleNote({ note }: SingleNoteProps) {
           <Divider />
 
           <ChakraText noOfLines={3}>
-            <Badge fontSize="lg" mr="2" variant="none" color="blue.200">
+            <Badge fontSize="lg" mr="2" variant="none" color="teal.400">
               {note.timestampHr} : {note.timestampMin} : {note.timestampSec}
             </Badge>
             {note.body}
           </ChakraText>
           <Flex align="center" justify="space-between" mt="4">
-            <Badge fontSize="xs" rounded="md" fontWeight="medium">
+            <Badge
+              fontSize="xs"
+              rounded="md"
+              fontWeight="medium"
+              colorScheme="cyan"
+            >
               {note.tag}
             </Badge>
             <HStack>
@@ -129,7 +130,6 @@ function SingleNote({ note }: SingleNoteProps) {
               {isEditing && (
                 <>
                   <NoteForm
-                    onClose={handleCancelEdit}
                     initialValues={{
                       title: note.title,
                       body: note.body,
@@ -160,7 +160,7 @@ function SingleNote({ note }: SingleNoteProps) {
 
                       <ModalFooter>
                         <Button
-                          colorScheme="blue"
+                          colorScheme="teal"
                           mr={3}
                           onClick={handleDelete}
                         >

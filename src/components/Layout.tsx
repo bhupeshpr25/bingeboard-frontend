@@ -71,7 +71,6 @@ function Layout() {
               <ColumnHeading>Media</ColumnHeading>
             </HStack>
             <MediaForm
-              onClose={onClose}
               isEditing={isEditingMedia}
               setIsEditing={setIsEditingMedia}
             />
@@ -99,7 +98,6 @@ function Layout() {
             </HStack>
 
             <NoteForm
-              onClose={onClose}
               isEditing={isEditingNote}
               setIsEditing={setIsEditingNote}
             />
