@@ -1,9 +1,4 @@
-import {
-  Box,
-  Center,
-  Stack,
-  useColorModeValue as mode,
-} from "@chakra-ui/react";
+import { Center, Stack, useColorModeValue as mode } from "@chakra-ui/react";
 import MediaListCard from "./MediaListCard";
 
 interface MediaListProps {

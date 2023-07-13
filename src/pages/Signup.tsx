@@ -11,7 +11,6 @@ import {
   Stack,
   Text,
   useToast,
-  Checkbox,
   Container,
   Image,
 } from "@chakra-ui/react";
