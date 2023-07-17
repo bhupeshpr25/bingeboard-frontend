@@ -41,7 +41,7 @@ const MediaListCard: React.FC<MediaListCardProps> = ({ media }) => {
         }}
       >
         <Text fontWeight="semibold">{media.title}</Text>
-        <Text>{media.description}</Text>
+        <Text noOfLines={4}>{media.description}</Text>
       </Stack>
     </Link>
   );

@@ -19,11 +19,10 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import {
-  FiClock,
   FiFilm,
   FiGitlab,
   FiMoon,
-  FiStar,
+  FiLayers,
   FiSun,
   FiTv,
   FiUserMinus,
@@ -82,16 +81,10 @@ export const Navbar = (props: any) => {
 
   const defaultNavs = [
     {
-      label: "Home",
-      icon: FiClock,
+      label: "All Notes",
+      icon: FiLayers,
       selected: true,
       to: `/home`,
-    },
-    {
-      label: "Favorites",
-      icon: FiStar,
-      selected: false,
-      to: `/favorites`,
     },
   ];
   const categories = [

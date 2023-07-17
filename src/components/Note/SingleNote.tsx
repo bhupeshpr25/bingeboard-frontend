@@ -102,80 +102,81 @@ function SingleNote({ note }: SingleNoteProps) {
           </HStack>
 
           <Divider />
-
-          <ChakraText noOfLines={3}>
-            <Badge fontSize="lg" mr="2" variant="none" color="teal.400">
-              {note.timestampHr} : {note.timestampMin} : {note.timestampSec}
-            </Badge>
-            {note.body}
-          </ChakraText>
-          <Flex align="center" justify="space-between" mt="4">
-            <Badge
-              fontSize="xs"
-              rounded="md"
-              fontWeight="medium"
-              colorScheme="cyan"
-            >
-              {note.tag}
-            </Badge>
-            <HStack>
-              {isButtonVisible && (
-                <IconButton
-                  variant="ghost"
-                  aria-label="edit"
-                  onClick={handleEdit}
-                  icon={<AiOutlineMore />}
-                />
-              )}
-              {isEditing && (
-                <>
-                  <NoteForm
-                    initialValues={{
-                      title: note.title,
-                      body: note.body,
-                      tag: note.tag,
-                      season: note.season,
-                      episode: note.episode,
-                      timestampHr: note.timestampHr,
-                      timestampMin: note.timestampMin,
-                      timestampSec: note.timestampSec,
-                    }}
-                    isEditing={isEditing}
-                    note={note}
-                    setIsEditing={setIsEditing}
-                  />
+          <Box>
+            <ChakraText noOfLines={3}>
+              <Badge fontSize="lg" mr="2" variant="none" color="teal.400">
+                {note.timestampHr} : {note.timestampMin} : {note.timestampSec}
+              </Badge>
+              {note.body}
+            </ChakraText>
+            <Flex align="center" justify="space-between">
+              <Badge
+                fontSize="xs"
+                rounded="md"
+                fontWeight="medium"
+                colorScheme="cyan"
+              >
+                {note.tag}
+              </Badge>
+              <HStack>
+                {isButtonVisible && (
                   <IconButton
                     variant="ghost"
-                    aria-label="delete"
-                    icon={<AiOutlineDelete />}
-                    onClick={onOpen}
+                    aria-label="edit"
+                    onClick={handleEdit}
+                    icon={<AiOutlineMore />}
                   />
+                )}
+                {isEditing && (
+                  <>
+                    <NoteForm
+                      initialValues={{
+                        title: note.title,
+                        body: note.body,
+                        tag: note.tag,
+                        season: note.season,
+                        episode: note.episode,
+                        timestampHr: note.timestampHr,
+                        timestampMin: note.timestampMin,
+                        timestampSec: note.timestampSec,
+                      }}
+                      isEditing={isEditing}
+                      note={note}
+                      setIsEditing={setIsEditing}
+                    />
+                    <IconButton
+                      variant="ghost"
+                      aria-label="delete"
+                      icon={<AiOutlineDelete />}
+                      onClick={onOpen}
+                    />
 
-                  <Modal isOpen={isOpen} onClose={onClose} isCentered>
-                    <ModalOverlay />
-                    <ModalContent>
-                      <ModalHeader>Delete Note</ModalHeader>
-                      <ModalCloseButton />
-                      <ModalBody>Are you sure?</ModalBody>
+                    <Modal isOpen={isOpen} onClose={onClose} isCentered>
+                      <ModalOverlay />
+                      <ModalContent>
+                        <ModalHeader>Delete Note</ModalHeader>
+                        <ModalCloseButton />
+                        <ModalBody>Are you sure?</ModalBody>
 
-                      <ModalFooter>
-                        <Button
-                          colorScheme="teal"
-                          mr={3}
-                          onClick={handleDelete}
-                        >
-                          Delete
-                        </Button>
-                        <Button variant="ghost" onClick={onClose}>
-                          Cancel
-                        </Button>
-                      </ModalFooter>
-                    </ModalContent>
-                  </Modal>
-                </>
-              )}
-            </HStack>
-          </Flex>
+                        <ModalFooter>
+                          <Button
+                            colorScheme="teal"
+                            mr={3}
+                            onClick={handleDelete}
+                          >
+                            Delete
+                          </Button>
+                          <Button variant="ghost" onClick={onClose}>
+                            Cancel
+                          </Button>
+                        </ModalFooter>
+                      </ModalContent>
+                    </Modal>
+                  </>
+                )}
+              </HStack>
+            </Flex>
+          </Box>
         </Stack>
       </Box>
     </Box>
