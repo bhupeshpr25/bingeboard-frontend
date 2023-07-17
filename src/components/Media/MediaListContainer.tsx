@@ -4,6 +4,9 @@ import useAuth from "../../hooks/useAuth";
 import { MediaList } from "./MediaList";
 import { Center, useToast } from "@chakra-ui/react";
 import { useNavigate, useLocation } from "react-router-dom";
+import MovieList from "./MovieList";
+import ShowList from "./ShowList";
+import AnimeList from "./AnimeList";
 
 interface MediaItem {
   id: string;
@@ -73,15 +76,15 @@ export default function MediaListContainer() {
   const animeList = mediaList.filter((media) => media.type === "anime");
 
   if (location.pathname === "/movies") {
-    return <MediaList media={movieList} />;
+    return <MovieList movies={movieList} />;
   }
 
   if (location.pathname === "/shows") {
-    return <MediaList media={showList} />;
+    return <ShowList shows={showList} />;
   }
 
   if (location.pathname === "/anime") {
-    return <MediaList media={animeList} />;
+    return <AnimeList anime={animeList} />;
   }
 
   return <MediaList media={mediaList} />;

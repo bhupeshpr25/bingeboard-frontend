@@ -27,6 +27,7 @@ import { createNote, updateNote } from "../../services/apiNote";
 import { useMediaId } from "../../hooks/useMediaId";
 import { INote, NoteFormValues } from "../../api/types";
 import { AiOutlineEdit } from "react-icons/ai";
+import { useQueryClient } from "@tanstack/react-query";
 
 const noteSchema = z.object({
   title: z.string().min(2, "Longer title is required").max(100),
@@ -52,9 +53,10 @@ export default function NoteForm({
   note,
 }: NoteFormProps) {
   const { isOpen, onOpen, onClose: onModalClose } = useDisclosure();
-  // const { isOpen: isToggleOpen, onToggle } = useDisclosure();
   const { getToken } = useAuth();
   const currentMediaId = useMediaId();
+
+  const queryClient = useQueryClient();
 
   const {
     handleSubmit,
@@ -75,6 +77,7 @@ export default function NoteForm({
       }
       reset();
       onModalClose();
+      queryClient.invalidateQueries(["media"]);
     } catch (error) {
       console.error(error);
     }

@@ -30,6 +30,7 @@ import useAuth from "../../hooks/useAuth";
 import { useState } from "react";
 import NoteForm from "./NoteForm";
 import { INote } from "../../api/types";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface SingleNoteProps {
   note: INote;
@@ -48,9 +49,12 @@ function SingleNote({ note }: SingleNoteProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [isButtonVisible, setIsButtonVisible] = useState(true);
 
+  const queryClient = useQueryClient();
+
   const handleDelete = async () => {
     try {
       await deleteNote(note.id, getToken());
+      queryClient.invalidateQueries(["media"]);
       onClose();
       // Handle success
     } catch (error) {
@@ -147,9 +151,7 @@ function SingleNote({ note }: SingleNoteProps) {
                     <ModalHeader>{note.title}</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>{note.body}</ModalBody>
-                    <ModalFooter>
-                      <Button onClick={onNoteClose}>Close</Button>
-                    </ModalFooter>
+                    <ModalFooter></ModalFooter>
                   </ModalContent>
                 </Modal>
 

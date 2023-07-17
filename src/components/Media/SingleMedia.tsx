@@ -21,7 +21,7 @@ import {
 } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { getMediaToken, getMedium, deleteMedia } from "../../services/apiMedia";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import SingleNote from "../Note/SingleNote";
 import useAuth from "../../hooks/useAuth";
 import { AiOutlineDelete, AiOutlineMore } from "react-icons/ai";
@@ -39,6 +39,8 @@ export const SingleMedia: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [isButtonVisible, setIsButtonVisible] = useState(true);
+
+  const queryClient = useQueryClient();
 
   const { isLoading: isMediaLoading, data: media } = useQuery({
     queryKey: ["media", mediaId, token],
@@ -59,6 +61,7 @@ export const SingleMedia: React.FC = () => {
       if (mediaId) {
         await deleteMedia(mediaId, getToken());
         onClose();
+        queryClient.invalidateQueries(["media"]);
         // Handle success
       }
     } catch (error) {
@@ -127,7 +130,7 @@ export const SingleMedia: React.FC = () => {
                   <Modal isOpen={isOpen} onClose={onClose} isCentered>
                     <ModalOverlay />
                     <ModalContent>
-                      <ModalHeader>Delete Note</ModalHeader>
+                      <ModalHeader>Delete Media</ModalHeader>
                       <ModalCloseButton />
                       <ModalBody>
                         Are you sure? This will also delete the notes

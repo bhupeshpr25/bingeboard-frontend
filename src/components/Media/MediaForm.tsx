@@ -25,6 +25,7 @@ import { createMedium, updateMedia } from "../../services/apiMedia";
 import useAuth from "../../hooks/useAuth";
 import { IMedia, Medium } from "../../api/types";
 import { AiOutlineEdit } from "react-icons/ai";
+import { useQueryClient } from "@tanstack/react-query";
 
 const mediaSchema = z.object({
   title: z.string().min(3, "Title is required").max(100),
@@ -48,6 +49,8 @@ export default function NoteForm({
 }: MediaFormProps) {
   const { isOpen, onOpen, onClose: onModalClose } = useDisclosure();
   const { getToken } = useAuth();
+  const queryClient = useQueryClient();
+
   const {
     handleSubmit,
     register,
@@ -67,6 +70,7 @@ export default function NoteForm({
       }
       reset();
       onModalClose();
+      queryClient.invalidateQueries(["media"]);
     } catch (error) {
       console.error(error);
     }
