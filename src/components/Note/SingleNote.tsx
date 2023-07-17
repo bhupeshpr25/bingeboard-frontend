@@ -20,7 +20,11 @@ import {
   ModalOverlay,
   useDisclosure,
 } from "@chakra-ui/react";
-import { AiOutlineDelete, AiOutlineMore } from "react-icons/ai";
+import {
+  AiOutlineArrowsAlt,
+  AiOutlineDelete,
+  AiOutlineMore,
+} from "react-icons/ai";
 import { deleteNote } from "../../services/apiNote";
 import useAuth from "../../hooks/useAuth";
 import { useState } from "react";
@@ -33,10 +37,16 @@ interface SingleNoteProps {
 
 function SingleNote({ note }: SingleNoteProps) {
   const alignCenter = useBreakpointValue({ base: true, lg: false });
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isNoteOpen,
+    onOpen: onNoteOpen,
+    onClose: onNoteClose,
+  } = useDisclosure();
+
   const { getToken } = useAuth();
   const [isEditing, setIsEditing] = useState(false);
   const [isButtonVisible, setIsButtonVisible] = useState(true);
-  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleDelete = async () => {
     try {
@@ -119,6 +129,30 @@ function SingleNote({ note }: SingleNoteProps) {
                 {note.tag}
               </Badge>
               <HStack>
+                <IconButton
+                  variant="ghost"
+                  aria-label="open note"
+                  icon={<AiOutlineArrowsAlt />}
+                  onClick={onNoteOpen}
+                />
+
+                <Modal
+                  size="xl"
+                  onClose={onNoteClose}
+                  isOpen={isNoteOpen}
+                  isCentered
+                >
+                  <ModalOverlay />
+                  <ModalContent>
+                    <ModalHeader>{note.title}</ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody>{note.body}</ModalBody>
+                    <ModalFooter>
+                      <Button onClick={onNoteClose}>Close</Button>
+                    </ModalFooter>
+                  </ModalContent>
+                </Modal>
+
                 {isButtonVisible && (
                   <IconButton
                     variant="ghost"
@@ -151,7 +185,12 @@ function SingleNote({ note }: SingleNoteProps) {
                       onClick={onOpen}
                     />
 
-                    <Modal isOpen={isOpen} onClose={onClose} isCentered>
+                    <Modal
+                      isOpen={isOpen}
+                      onClose={onClose}
+                      scrollBehavior="inside"
+                      isCentered
+                    >
                       <ModalOverlay />
                       <ModalContent>
                         <ModalHeader>Delete Note</ModalHeader>

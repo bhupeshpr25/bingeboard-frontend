@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import { MediaList } from "./MediaList";
 import { Center, useToast } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 interface MediaItem {
   id: string;
@@ -17,9 +17,9 @@ export default function MediaListContainer() {
   const [mediaList, setMediaList] = useState<MediaItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
-
   const toast = useToast();
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const fetchMediaList = async () => {
@@ -66,6 +66,22 @@ export default function MediaListContainer() {
 
   if (error) {
     return <div>{error}</div>;
+  }
+
+  const movieList = mediaList.filter((media) => media.type === "movie");
+  const showList = mediaList.filter((media) => media.type === "show");
+  const animeList = mediaList.filter((media) => media.type === "anime");
+
+  if (location.pathname === "/movies") {
+    return <MediaList media={movieList} />;
+  }
+
+  if (location.pathname === "/shows") {
+    return <MediaList media={showList} />;
+  }
+
+  if (location.pathname === "/anime") {
+    return <MediaList media={animeList} />;
   }
 
   return <MediaList media={mediaList} />;
