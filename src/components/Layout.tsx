@@ -6,6 +6,7 @@ import {
   Flex,
   HStack,
   useDisclosure,
+  useColorModeValue as mode,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { FiArrowLeft, FiMenu } from "react-icons/fi";
@@ -47,6 +48,7 @@ function Layout() {
           base: "none",
           md: "initial",
         }}
+        bg={mode("gray.50", "gray.800")}
         overflowY="auto"
         onScroll={(x) => setSidebarIsScrolled(x.currentTarget.scrollTop > 32)}
       >

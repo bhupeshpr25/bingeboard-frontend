@@ -29,7 +29,7 @@ import {
   FiX,
 } from "react-icons/fi";
 import { ColumnHeader, ColumnIconButton } from "./Column";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { IconType } from "react-icons";
 import useAuth from "../hooks/useAuth";
 
@@ -37,6 +37,7 @@ interface NavLinkProps {
   icon: IconType;
   to: string;
   children: React.ReactNode;
+  isSelected: boolean;
 }
 
 interface NavHeadingProps {
@@ -63,6 +64,7 @@ export const Navbar = (props: any) => {
   const { logout } = useAuth();
   const navigate = useNavigate();
   const toast = useToast();
+  const location = useLocation();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -79,31 +81,25 @@ export const Navbar = (props: any) => {
     navigate("/signin");
   }
 
-  const defaultNavs = [
+  const navItems = [
     {
       label: "All Notes",
       icon: FiLayers,
-      selected: true,
       to: `/home`,
     },
-  ];
-  const categories = [
     {
       label: "Movies",
       icon: FiFilm,
-      selected: false,
       to: `/movies`,
     },
     {
       label: "Shows",
       icon: FiTv,
-      selected: false,
       to: `/shows`,
     },
     {
       label: "Anime",
       icon: FiGitlab,
-      selected: false,
       to: `/anime`,
     },
   ];
@@ -132,27 +128,22 @@ export const Navbar = (props: any) => {
             <Text fontWeight="bold" fontSize="md" lineHeight="1.25rem" ml="3">
               bingeboard
             </Text>
-            {/* <DarkModeToggle /> */}
+            <DarkModeToggle />
           </HStack>
         </ColumnHeader>
 
         <Stack px="3" spacing="6" bg={mode("gray.100", "gray.700")}>
-          <Stack spacing="2">
-            {defaultNavs.map((item, id) => (
-              <NavLink key={id} icon={item.icon} to={item.to}>
+          <Stack spacing="4">
+            {navItems.map((item, id) => (
+              <NavLink
+                key={id}
+                icon={item.icon}
+                to={item.to}
+                isSelected={location.pathname === item.to}
+              >
                 {item.label}
               </NavLink>
             ))}
-          </Stack>
-          <Stack spacing="3">
-            <NavHeading>CATEGORIES</NavHeading>
-            <Stack spacing="2" pl="1">
-              {categories.map((item, id) => (
-                <NavLink key={id} icon={item.icon} to={item.to}>
-                  {item.label}
-                </NavLink>
-              ))}
-            </Stack>
           </Stack>
         </Stack>
       </Stack>
@@ -161,11 +152,18 @@ export const Navbar = (props: any) => {
         m="2"
         spacing="6"
         borderRadius="lg"
-        _hover={{ bg: "gray.900", cursor: "pointer" }}
+        _hover={{
+          bg: mode("gray.300", "gray.800"),
+          cursor: "pointer",
+        }}
+        _activeLink={{
+          bg: mode("gray.300", "gray.800"),
+          color: mode("gray.800", "gray.200"),
+        }}
         onClick={onOpen}
       >
         <Icon as={FiUserMinus} />
-        <Box color="gray.300">sign out</Box>
+        <Box>sign out</Box>
       </HStack>
 
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
@@ -190,7 +188,7 @@ export const Navbar = (props: any) => {
 };
 
 export const NavLink = (props: NavLinkProps) => {
-  const { icon, to } = props;
+  const { icon, to, isSelected } = props;
   return (
     <Box
       px="2"
@@ -203,6 +201,8 @@ export const NavLink = (props: NavLinkProps) => {
         bg: mode("gray.300", "gray.800"),
         color: mode("gray.800", "gray.200"),
       }}
+      bg={isSelected ? mode("gray.300", "gray.800") : undefined}
+      color={isSelected ? mode("gray.800", "gray.200") : undefined}
     >
       <HStack justify="space-between">
         <HStack spacing="3">
