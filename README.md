@@ -30,7 +30,7 @@ Create a .env file in the root directory with the following data :
 ### 4. run the application
 ```npm run dev```
 
-## Backend Code
+## Additional Links
 
 backend repository - [code](https://github.com/bhupeshpr25/bingeboard-backend)
 
