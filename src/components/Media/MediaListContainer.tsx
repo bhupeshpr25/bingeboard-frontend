@@ -28,6 +28,11 @@ export default function MediaListContainer() {
     const fetchMediaList = async () => {
       const token = getToken();
 
+      if (!token) {
+        navigate("/signin");
+        return;
+      }
+
       try {
         const response = await axios.get(
           "https://bingeboard.onrender.com/api/media",
