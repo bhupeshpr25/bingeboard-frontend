@@ -105,99 +105,97 @@ export default function Signin() {
   };
 
   return (
-    <Container
-      maxW="lg"
-      py={{ base: "12", md: "16" }}
-      px={{ base: "0", sm: "8" }}
-      maxH="100vh"
-    >
-      <Center>
-        <Flex flexDirection="column" width="container.md">
-          <Center m="3">
-            <HStack>
-              <Image
-                boxSize="70px"
-                objectFit="cover"
-                src="/logo.png"
-                alt="bingeboard"
-              />
-              <Heading as="h2" fontSize="3xl">
-                bingeboard
-              </Heading>
-            </HStack>
-          </Center>
-          <Stack
-            spacing="8"
-            p="4"
-            bg={{ base: "transparent", sm: "bg.surface" }}
-            boxShadow={{ base: "none", sm: "md" }}
-            borderRadius="lg"
-            bgColor="gray.700"
-          >
-            <Stack mt="4">
-              <Stack spacing={{ base: "2", md: "3" }} textAlign="center">
-                <Heading size={{ base: "sm", md: "md" }}>
-                  Sign in to your account
+    <Box bg="gray.900" height="100vh">
+      <Container py={{ base: "12", md: "16" }} px={{ base: "0", sm: "8" }}>
+        <Center>
+          <Flex flexDirection="column" width="container.md">
+            <Center m="3">
+              <HStack>
+                <Image
+                  boxSize="70px"
+                  objectFit="cover"
+                  src="/logo.png"
+                  alt="bingeboard"
+                />
+                <Heading as="h2" fontSize="3xl" color="gray.100">
+                  bingeboard
                 </Heading>
-              </Stack>
-            </Stack>
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <Box py={{ base: "0", sm: "8" }} px={{ base: "4", sm: "10" }}>
-                <Stack spacing="6">
-                  <Stack spacing="5">
-                    <FormControl>
-                      <FormLabel htmlFor="email">Username</FormLabel>
-                      <Input
-                        id="username"
-                        type="username"
-                        _hover={{ borderColor: "teal.500" }}
-                        {...register("username")}
-                      />
-                      {errors.username && (
-                        <Box mt="2" color="red-800">
-                          {errors.username?.message}
-                        </Box>
-                      )}
-                    </FormControl>
-                    <FormControl>
-                      <FormLabel htmlFor="password">Password</FormLabel>
-                      <Input
-                        id="password"
-                        type="password"
-                        _hover={{ borderColor: "teal.500" }}
-                        {...register("password")}
-                      />
-                      {errors.password && (
-                        <Box mt="2" color="red-800">
-                          {errors.password?.message}
-                        </Box>
-                      )}
-                    </FormControl>
-                  </Stack>
-                  <Stack spacing="6">
-                    <Button
-                      type="submit"
-                      bg="teal.500"
-                      variant="primary"
-                      color="white"
-                      _hover={{ bg: "teal.400" }}
-                      disabled={isSubmitting}
-                    >
-                      Sign in
-                    </Button>
-                  </Stack>
-                  <HStack spacing="1" justify="center">
-                    <Text color="gray.400">Don't have an account?</Text>
-                    <Button variant="secondary" colorScheme="teal">
-                      <Link href="/signup">Sign up</Link>
-                    </Button>
-                  </HStack>
+              </HStack>
+            </Center>
+            <Stack
+              spacing="8"
+              p="4"
+              bg={{ base: "transparent", sm: "bg.surface" }}
+              boxShadow={{ base: "none", sm: "md" }}
+              borderRadius="lg"
+              bgColor="gray.700"
+              color="gray.300"
+            >
+              <Stack mt="4">
+                <Stack spacing={{ base: "2", md: "3" }} textAlign="center">
+                  <Heading size={{ base: "sm", md: "md" }}>
+                    Sign in to your account
+                  </Heading>
                 </Stack>
-              </Box>
-            </form>
-          </Stack>
-        </Flex>
-      </Center>
-    </Container>
+              </Stack>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <Box py={{ base: "0", sm: "8" }} px={{ base: "4", sm: "10" }}>
+                  <Stack spacing="6">
+                    <Stack spacing="5">
+                      <FormControl>
+                        <FormLabel htmlFor="email">Username</FormLabel>
+                        <Input
+                          id="username"
+                          type="username"
+                          _hover={{ borderColor: "teal.500" }}
+                          {...register("username")}
+                        />
+                        {errors.username && (
+                          <Box mt="2" color="red-800">
+                            {errors.username?.message}
+                          </Box>
+                        )}
+                      </FormControl>
+                      <FormControl>
+                        <FormLabel htmlFor="password">Password</FormLabel>
+                        <Input
+                          id="password"
+                          type="password"
+                          _hover={{ borderColor: "teal.500" }}
+                          {...register("password")}
+                        />
+                        {errors.password && (
+                          <Box mt="2" color="red-800">
+                            {errors.password?.message}
+                          </Box>
+                        )}
+                      </FormControl>
+                    </Stack>
+                    <Stack spacing="6">
+                      <Button
+                        type="submit"
+                        bg="teal.500"
+                        variant="primary"
+                        color="white"
+                        _hover={{ bg: "teal.400" }}
+                        disabled={isSubmitting}
+                      >
+                        Sign in
+                      </Button>
+                    </Stack>
+                    <HStack spacing="1" justify="center">
+                      <Text color="gray.400">Don't have an account?</Text>
+                      <Button variant="secondary" colorScheme="teal">
+                        <Link href="/signup">Sign up</Link>
+                      </Button>
+                    </HStack>
+                  </Stack>
+                </Box>
+              </form>
+            </Stack>
+          </Flex>
+        </Center>
+      </Container>
+    </Box>
   );
 }
