@@ -6,6 +6,7 @@ interface ShowListProps {
     id: string;
     title: string;
     description: string;
+    link: string;
     type: string;
   }[];
 }
@@ -29,7 +30,7 @@ const ShowList: React.FC<ShowListProps> = ({ shows }) => {
         lg: "3",
       }}
       py="3"
-      bg={mode("gray.50", "gray.800")}
+      bg={mode("gray.100", "gray.800")}
     >
       {shows.map((show) => (
         <MediaListCard media={show} key={show.id} />

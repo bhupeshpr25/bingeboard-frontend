@@ -9,6 +9,7 @@ interface MediaItem {
   title: string;
   type: string;
   description: string;
+  link: string;
 }
 
 const Home = () => {

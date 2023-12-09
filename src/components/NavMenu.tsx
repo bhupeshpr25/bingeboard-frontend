@@ -110,7 +110,7 @@ export const Navbar = (props: any) => {
       height="full"
       direction="column"
       justify="space-between"
-      bg={mode("gray.100", "gray.700")}
+      bg={mode("gray.100", "gray.800")}
       {...props}
     >
       <Stack spacing="3">
@@ -132,7 +132,7 @@ export const Navbar = (props: any) => {
           </HStack>
         </ColumnHeader>
 
-        <Stack px="3" spacing="6" bg={mode("gray.100", "gray.700")}>
+        <Stack px="3" spacing="6" bg={mode("gray.100", "gray.800")}>
           <Stack spacing="4">
             {navItems.map((item, id) => (
               <NavLink

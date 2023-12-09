@@ -6,6 +6,7 @@ interface MovieListProps {
     id: string;
     title: string;
     description: string;
+    link: string;
     type: string;
   }[];
 }
@@ -29,7 +30,7 @@ const MovieList: React.FC<MovieListProps> = ({ movies }) => {
         lg: "3",
       }}
       py="3"
-      bg={mode("gray.50", "gray.800")}
+      bg={mode("gray.100", "gray.800")}
     >
       {movies.map((movie) => (
         <MediaListCard media={movie} key={movie.id} />

@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   Center,
+  Flex,
   HStack,
   Heading,
   IconButton,
@@ -76,7 +77,7 @@ export const SingleMedia: React.FC = () => {
   };
 
   return (
-    <Box as="main" height="full" bg={mode("gray.50", "gray.800")}>
+    <Box as="main" height="full" bg={mode("gray.100", "gray.800")}>
       {media && (
         <Stack spacing="8">
           <HStack
@@ -113,6 +114,7 @@ export const SingleMedia: React.FC = () => {
                     initialValues={{
                       title: media.title,
                       description: media.description,
+                      link: media.link,
                       type: media.type,
                     }}
                     isEditing={isEditing}
@@ -160,7 +162,17 @@ export const SingleMedia: React.FC = () => {
             maxW="full"
             color={mode("blackAlpha.800", "whiteAlpha.800")}
           >
-            <Box p="2" mx="4" rounded="lg">
+            <Flex p="2">
+              <Text ml="2" fontWeight="bold">
+                Link :
+              </Text>
+              <Box ml="4" rounded="lg" color="blue.300">
+                <a href={media.link} target="_blank">
+                  {media.link}
+                </a>
+              </Box>
+            </Flex>
+            <Box p="2" mx="4" border="2px" borderColor="gray.600" rounded="lg">
               {media.description}
             </Box>
             {media.notes && media.notes.length > 0 ? (

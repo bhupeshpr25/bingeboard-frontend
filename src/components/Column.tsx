@@ -18,7 +18,7 @@ export const ColumnHeader = (props: FlexProps) => (
     top="0"
     px="3"
     align="center"
-    bg={mode("gray.50", "gray.800")}
+    bg={mode("gray.100", "gray.800")}
     color={mode("gray.700", "gray.100")}
     {...props}
   />

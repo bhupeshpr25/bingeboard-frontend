@@ -6,6 +6,7 @@ interface MediaListProps {
     id: string;
     title: string;
     description: string;
+    link: string;
     type: string;
   }[];
 }
@@ -28,7 +29,7 @@ export const MediaList: React.FC<MediaListProps> = ({ media }) => {
         lg: "3",
       }}
       py="3"
-      bg={mode("gray.50", "gray.800")}
+      bg={mode("gray.100", "gray.800")}
     >
       {media.map((medium) => (
         <MediaListCard media={medium} key={medium.id} />

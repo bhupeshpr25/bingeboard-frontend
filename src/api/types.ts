@@ -12,6 +12,7 @@ export interface IMedia {
   id: string;
   title: string;
   description?: string;
+  link?: string;
   type: Medium;
   favorite: boolean;
   createdAt: string;
@@ -64,6 +65,7 @@ export interface MediaFormValues {
   title: string;
   type: Medium;
   description?: string;
+  link?: string;
 }
 
 export interface NoteFormValues {

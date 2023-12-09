@@ -6,6 +6,7 @@ interface AnimeListProps {
     id: string;
     title: string;
     description: string;
+    link: string;
     type: string;
   }[];
 }
@@ -29,7 +30,7 @@ const AnimeList: React.FC<AnimeListProps> = ({ anime }) => {
         lg: "3",
       }}
       py="3"
-      bg={mode("gray.50", "gray.800")}
+      bg={mode("gray.100", "gray.800")}
     >
       {anime.map((anime) => (
         <MediaListCard media={anime} key={anime.id} />

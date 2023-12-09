@@ -48,7 +48,7 @@ function Layout() {
           base: "none",
           md: "initial",
         }}
-        bg={mode("gray.50", "gray.800")}
+        bg={mode("gray.100", "gray.800")}
         overflowY="auto"
         onScroll={(x) => setSidebarIsScrolled(x.currentTarget.scrollTop > 32)}
       >

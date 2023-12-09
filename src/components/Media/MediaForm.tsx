@@ -31,6 +31,7 @@ const mediaSchema = z.object({
   title: z.string().min(3, "Title is required").max(100),
   type: z.nativeEnum(Medium),
   description: z.string().max(1000).optional(),
+  link: z.string().max(1000).optional(),
 });
 
 type MediaFormValues = z.infer<typeof mediaSchema>;
@@ -126,6 +127,15 @@ export default function NoteForm({
                 {errors.type && (
                   <Box mt="2" color="red-800">
                     {errors.type?.message}
+                  </Box>
+                )}
+              </FormControl>
+              <FormControl mt="4">
+                <FormLabel>Link (optional)</FormLabel>
+                <Input placeholder="" {...register("link")} />
+                {errors.link && (
+                  <Box mt="2" color="red-800">
+                    {errors.link?.message}
                   </Box>
                 )}
               </FormControl>
