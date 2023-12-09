@@ -8,6 +8,7 @@ import {
   useDisclosure,
   useColorModeValue as mode,
 } from "@chakra-ui/react";
+import { useLocation } from "react-router-dom";
 import { useState } from "react";
 import { FiArrowLeft, FiMenu } from "react-icons/fi";
 import { ColumnHeader, ColumnHeading, ColumnIconButton } from "./Column";
@@ -18,11 +19,26 @@ import MediaListContainer from "./Media/MediaListContainer";
 import NoteForm from "./Note/NoteForm";
 
 function Layout() {
+  const location = useLocation();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [sidebarIsScrolled, setSidebarIsScrolled] = useState(false);
   const [mediaIsScrolled, setMediaIsScrolled] = useState(false);
   const [isEditingMedia, setIsEditingMedia] = useState(false);
   const [isEditingNote, setIsEditingNote] = useState(false);
+
+  // get the heading based on the route
+  const getHeading = () => {
+    const path = location.pathname.toLowerCase();
+    if (path.includes("/movies")) {
+      return "Movies";
+    } else if (path.includes("/shows")) {
+      return "Shows";
+    } else if (path.includes("/anime")) {
+      return "Anime";
+    } else {
+      return "All Media";
+    }
+  };
 
   return (
     <Flex height="100vh">
@@ -70,7 +86,7 @@ function Layout() {
                   <Navbar onClose={onClose} />
                 </DrawerContent>
               </Drawer>
-              <ColumnHeading>Media</ColumnHeading>
+              <ColumnHeading>{getHeading()}</ColumnHeading>
             </HStack>
             <MediaForm
               isEditing={isEditingMedia}

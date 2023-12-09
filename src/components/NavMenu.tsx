@@ -132,7 +132,7 @@ export const Navbar = (props: any) => {
           </HStack>
         </ColumnHeader>
 
-        <Stack px="3" spacing="6" bg={mode("gray.100", "gray.800")}>
+        <Stack px="3" spacing="8" bg={mode("gray.100", "gray.800")}>
           <Stack spacing="4">
             {navItems.map((item, id) => (
               <NavLink
