@@ -2,7 +2,6 @@ import {
   Box,
   Button,
   Center,
-  Flex,
   HStack,
   Heading,
   IconButton,
@@ -20,15 +19,16 @@ import {
   useColorModeValue as mode,
   useDisclosure,
 } from "@chakra-ui/react";
+import useAuth from "../../hooks/useAuth";
 import { useParams } from "react-router-dom";
 import { getMediaToken, getMedium, deleteMedia } from "../../services/apiMedia";
+import Microlink from "@microlink/react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import SingleNote from "../Note/SingleNote";
-import useAuth from "../../hooks/useAuth";
 import { AiOutlineDelete, AiOutlineMore } from "react-icons/ai";
 import { useState } from "react";
-import MediaForm from "./MediaForm";
 import { INote } from "../../api/types";
+import MediaForm from "./MediaForm";
+import SingleNote from "../Note/SingleNote";
 
 export const SingleMedia: React.FC = () => {
   const { mediaId } = useParams<{ mediaId?: string }>();
@@ -162,17 +162,15 @@ export const SingleMedia: React.FC = () => {
             maxW="full"
             color={mode("blackAlpha.800", "whiteAlpha.800")}
           >
-            <Flex p="2">
-              <Text ml="2" fontWeight="bold">
-                Link :
-              </Text>
-              <Box ml="4" rounded="lg" color="blue.300">
-                <a href={media.link} target="_blank">
-                  {media.link}
-                </a>
-              </Box>
-            </Flex>
-            <Box p="2" mx="4" border="2px" borderColor="gray.600" rounded="lg">
+            <Center
+              p="2"
+              sx={{
+                "--microlink-max-width": "800px",
+              }}
+            >
+              <Microlink url={media.link} lazy contrast size="large" />
+            </Center>
+            <Box p="2" mx="4">
               {media.description}
             </Box>
             {media.notes && media.notes.length > 0 ? (
